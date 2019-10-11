@@ -6,6 +6,10 @@ chromium-widevine plugin installed, so you can watch Netflix or listen to spotif
 ## Build
 `docker build -t chromium .`
 
+## Seccomp
+Be sure to add the `chrome.json` seccomp file to your docker-seccomp folder.  
+This is probably located at something like `/etc/docker/seccomp/`.
+
 ## Run
 Use the `chromium` executable. It mounts everything as needed.  
 I would recomend putting this in `~/bin/` and adding your `~/bin` to $PATH.

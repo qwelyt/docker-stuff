@@ -11,7 +11,7 @@ docker-on-x run --rm \
 	-v /dev/shm:/dev/shm \
 	-v /etc/hosts:/etc/hosts \
 	-v /run/user/${USER_ID}/pulse:/run/user/1000/pulse \
-	--security-opt seccomp:/etc/docker/seccomp/chrome.json \
+	--security-opt seccomp=/etc/docker/seccomp/chrome.json \
 	--device /dev/snd \
 	--device /dev/dri \
 	--device /dev/video0 \
