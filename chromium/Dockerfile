@@ -9,7 +9,7 @@ RUN pacman -Syyu --noconfirm \
 	&& pacman -S --noconfirm \
 		iproute2 iputils mlocate tar wget \
 		sudo openssh zsh grml-zsh-config vim git \
-		noto-fonts noto-fonts-extra noto-fonts-emoji \
+		noto-fonts noto-fonts-extra noto-fonts-emoji ttf-droid ttf-dejavu ttf-liberation \
 		chromium
 
 
