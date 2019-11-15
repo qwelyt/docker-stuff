@@ -3,6 +3,7 @@ USER_ID=$(id -u)
 docker-on-x run --rm \
 	-it \
 	--name chromium \
+	-e TZ=Europe/Stockholm \
 	-v "${HOME}/Downloads:/home/developer/Downloads" \
 	-v "${HOME}/Pictures:/home/developer/Pictures" \
 	-v "${HOME}/Torrents:/home/developer/Torrents" \
