@@ -1,0 +1,13 @@
+#!/bin/bash
+NAME=${@// /_}
+NAME=${NAME////_}
+docker-on-x run --rm \
+	-it \
+	--name libreoffice-$NAME \
+	-e TZ=Europe/Stockholm \
+	-e GDK_SCALE \
+	-e GDK_DPI_SCALE \
+	-v /etc/localtime:/etc/localtime:ro \
+	-v "$(pwd)":/files/ \
+	libreoffice "$@"
+
