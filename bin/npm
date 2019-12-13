@@ -1,0 +1,9 @@
+#!/bin/bash
+docker run --rm -it \
+	--user=$UID:1000 \
+	--name=npm-executable \
+	-v "$PWD":/usr/app \
+	-w /usr/app \
+	node:10 \
+	npm "$@"
+#	/bin/bash

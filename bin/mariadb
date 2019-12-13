@@ -1,0 +1,8 @@
+#!/bin/sh
+docker run \
+	--rm \
+	--name mariadb \
+	-e MYSQL_ROOT_PASSWORD=root \
+	-v $HOME/dbs:/var/lib/mysql \
+	mariadb
+	

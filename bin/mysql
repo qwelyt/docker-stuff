@@ -1,0 +1,18 @@
+#!/bin/sh
+version=$1
+
+if [[ "$version" = "5" ]]; then
+	docker run \
+		--rm \
+		--name mysql5 \
+		-e MYSQL_ROOT_PASSWORD=root \
+		-v $HOME/docker-files/dbs/mysql5:/var/lib/mysql \
+		mysql:5.6
+else 
+	docker run \
+		--rm \
+		--name mysql-latest \
+		-e MYSQL_ROOT_PASSWORD=root \
+		-v $HOME/dbs2:/var/lib/mysql \
+		mysql:latest
+fi
