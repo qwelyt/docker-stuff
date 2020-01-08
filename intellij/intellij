@@ -2,7 +2,8 @@
 docker-on-x run --rm \
 	-it \
 	--name intellij \
-	-v $HOME/intellijSettings/intellij:/home/developer/.IntelliJIdea2019.2 \
+	-v $HOME/intellijSettings/ideaIC:/home/developer/.IdeaIC2019.3 \
+	-v $HOME/intellijSettings/intellij:/home/developer/.IntelliJIdea2019.3 \
 	-v $HOME/intellijSettings/java:/home/developer/.java \
 	-v $HOME/code:/home/developer/IdeaProjects \
 	-v $HOME/.m2:/home/developer/.m2 \
