@@ -32,6 +32,7 @@ RUN mkdir /tmp/aur \
 	&& cd chromium-widevine \
 	&& makepkg -sic --noconfirm
 
+
 USER root
 
 RUN userdel -r $BUILD
@@ -43,6 +44,8 @@ RUN rm -rf /tmp/*
 RUN echo "%wheel ALL=(ALL) ALL" >> /etc/sudoers
 RUN useradd -m -G wheel -s /bin/zsh $USERNAME \
 	&& echo "$USERNAME:$USERNAME" | chpasswd
+
+RUN mv /usr/share/icons/Adwaita/cursors /usr/share/icons/Adwaita/_cursors
 
 # To be able to connect to hosts pulseaudio server and get sound
 COPY pulse-client.conf /etc/pulse/client.conf 
