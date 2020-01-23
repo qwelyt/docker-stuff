@@ -1,0 +1,14 @@
+#!/bin/bash
+NAME=${@// /_}
+NAME=${NAME////_}
+docker-on-x run --rm \
+	-it \
+	--name openscad-$NAME \
+	-e TZ=Europe/Stockholm \
+	-e GDK_SCALE \
+	-e GDK_DPI_SCALE \
+	-v /etc/localtime:/etc/localtime:ro \
+	-v "$(pwd)":/files/ \
+    -v "$HOME"/.config/openscad:/root/.config/OpenSCAD \
+	openscad "$@"
+
