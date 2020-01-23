@@ -11,7 +11,7 @@ RUN pacman -Syyu --noconfirm \
 		sudo openssh zsh grml-zsh-config vim git \
 		noto-fonts noto-fonts-extra noto-fonts-emoji ttf-droid ttf-dejavu ttf-liberation \
 		libxrender freetype2 libxft libxtst \
-		jre11-openjdk jdk11-openjdk jad maven \
+		jre-openjdk jdk-openjdk jad maven \
 		intellij-idea-community-edition
 
 
