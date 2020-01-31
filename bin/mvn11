@@ -1,0 +1,11 @@
+#!/bin/bash
+docker run -it --rm \
+	--user="$UID":1000 \
+	--name mvn-java11-executable \
+	-v "$HOME/.m2":/var/maven/.m2 \
+	-e MAVEN_CONFIG=/var/maven/.m2 \
+	-v "$(pwd)":/usr/src/app \
+	-w /usr/src/app \
+	maven:3.6-jdk-11 \
+	mvn -Duser.home=/var/maven "$@"
+#	/bin/bash
