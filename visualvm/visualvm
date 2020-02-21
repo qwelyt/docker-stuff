@@ -1,0 +1,5 @@
+#!/bin/bash
+docker-on-x run --rm \
+    -it \
+    --name visualvm \
+    visualvm "$@"
