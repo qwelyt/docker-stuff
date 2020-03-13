@@ -10,8 +10,9 @@ RUN pacman -Syyu --noconfirm \
 		iproute2 iputils mlocate tar wget \
 		sudo openssh zsh grml-zsh-config vim git \
 		noto-fonts noto-fonts-extra noto-fonts-emoji ttf-droid ttf-dejavu ttf-liberation \
-		libxrender freetype2 libxft \
-		jre-openjdk jdk-openjdk jad 
+		libxrender freetype2 libxft libxtst \
+		jre-openjdk jdk-openjdk \
+        jad maven 
 
 RUN useradd --no-create-home --shell=/bin/zsh $BUILD
 RUN usermod -L $BUILD
