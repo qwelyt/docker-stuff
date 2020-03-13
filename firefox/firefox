@@ -1,0 +1,21 @@
+#!/bin/bash
+USER_ID=$(id -u)
+docker-on-x run --rm \
+	-it \
+	--name firefox \
+	-e TZ=Europe/Stockholm \
+	-v "${HOME}/Downloads:/home/developer/Downloads" \
+	-v "${HOME}/Pictures:/home/developer/Pictures" \
+	-v "${HOME}/Torrents:/home/developer/Torrents" \
+	-v "${HOME}/.firefox/mozilla:/home/developer/.mozilla" \
+	-v "${HOME}/.firefox/cache:/home/developer/.cache" \
+	-v /dev/shm:/dev/shm \
+	-v /etc/hosts:/etc/hosts \
+	-v /run/user/${USER_ID}/pulse:/run/user/1000/pulse \
+	--device /dev/snd \
+	--device /dev/dri \
+	--device /dev/video0 \
+	--device /dev/bus/usb \
+	--group-add audio \
+	--group-add video \
+    firefox
