@@ -1,5 +1,6 @@
 #!/bin/bash
 docker run -it --rm \
 	--user="$UID":1000 \
-	--name nomad \
+	--name nomad-${RANDOM} \
+    -e NOMAD_ADDR=${NOMAD_ADDR} \
     nomad "$@"
