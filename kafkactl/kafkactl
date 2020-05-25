@@ -1,0 +1,5 @@
+#!/bin/bash
+docker run -it --rm \
+	--user="$UID":1000 \
+	--name kafkactl \
+    kafkactl "$@"
