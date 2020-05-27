@@ -1,0 +1,10 @@
+#!/bin/bash
+docker-on-x run --rm \
+	-it \
+	--name vscode \
+	-v $HOME/code:/home/developer/code \
+	-v $HOME/.m2:/home/developer/.m2 \
+    -v $HOME/vscode/fontconfig:/home/developer/.cache/fontconfig \
+    -v $HOME/vscode/config/:/home/developer/.config \
+    -v $HOME/vscode/oss:/home/developer/.vscode-oss \
+	vscode
