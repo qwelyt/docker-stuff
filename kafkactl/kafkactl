@@ -2,4 +2,5 @@
 docker run -it --rm \
 	--user="$UID":1000 \
 	--name kafkactl \
+    -v $HOME/.config/kafkactl:/home/developer/.config/kafkactl \
     kafkactl "$@"
