@@ -1,0 +1,10 @@
+#!/bin/bash
+NAME=${@// /_}
+NAME=${NAME////_}
+FOLDER=${NAME//.ino//}
+docker-on-x run --rm \
+        --privileged \
+        -it \
+        --name arduino-$NAME \
+        -v "$(pwd)":/sketch/${FOLDER} \
+        arduino "/sketch/${FOLDER}/$@"
