@@ -1,0 +1,21 @@
+#!/bin/bash
+#	-v /run/user/${USER_ID}/pulse:/run/user/1000/pulse \
+USER_ID=$(id -u)
+docker-on-x run --rm \
+	-it \
+	--name discord \
+	-e TZ=Europe/Stockholm \
+	-v "${HOME}/Downloads:/home/developer/Downloads" \
+	-v "${HOME}/Pictures:/home/developer/Pictures" \
+	-v "${HOME}/Torrents:/home/developer/Torrents" \
+	-v "${HOME}/.discord:/home/developer/.config/discord" \
+	-v /dev/shm:/dev/shm \
+	-v /etc/hosts:/etc/hosts \
+	-v /run/user/${USER_ID}/pulse:/run/user/1000/pulse \
+	--security-opt seccomp=/etc/docker/seccomp/chrome.json \
+	--device /dev/snd \
+	--device /dev/dri \
+	--device /dev/bus/usb \
+	--group-add audio \
+	--group-add video \
+	discord
