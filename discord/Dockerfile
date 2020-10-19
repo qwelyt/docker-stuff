@@ -31,7 +31,5 @@ RUN usermod -aG audio $USERNAME
 
 USER $USERNAME
 
-#ENTRYPOINT ["/usr/bin/discord"]
-#CMD ["--user-data-dir=/home/developer/data", "--disk-cache-dir=/home/developer/cache"]
-
-ENTRYPOINT ["/bin/zsh"] # Use for debugging stuff
+ENTRYPOINT ["/usr/bin/discord"]
+#ENTRYPOINT ["/bin/zsh"] # Use for debugging stuff
