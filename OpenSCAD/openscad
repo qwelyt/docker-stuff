@@ -1,6 +1,7 @@
 #!/bin/bash
 NAME=${@// /_}
 NAME=${NAME////_}
+#	--user=$UID:1000 \
 docker-on-x run --rm \
 	-it \
 	--name openscad-$NAME \
@@ -8,7 +9,12 @@ docker-on-x run --rm \
 	-e GDK_SCALE \
 	-e GDK_DPI_SCALE \
 	-v /etc/localtime:/etc/localtime:ro \
-	-v "$(pwd)":/files/ \
+	-v "$PWD":/files/ \
     -v "$HOME"/.config/openscad:/root/.config/OpenSCAD \
+	--device /dev/snd \
+	--device /dev/dri \
+	--device /dev/bus/usb \
+	--group-add audio \
+	--group-add video \
 	openscad "$@"
 
