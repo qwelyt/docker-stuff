@@ -7,12 +7,15 @@ ENV BUILD build
 RUN pacman -Syyu --noconfirm \
 	&& pacman -S --needed --noconfirm base-devel \
 	&& pacman -S --noconfirm \
-		zsh \
-		noto-fonts noto-fonts-extra noto-fonts-emoji \
-		ttf-droid ttf-dejavu ttf-liberation ttf-fira-code \
-		ttf-fira-mono ttf-roboto cantarell-fonts \
-		# Application
-		discord libpulse xdg-utils
+        # Basic nice to haves
+        iproute2 iputils mlocate tar wget \
+        sudo openssh zsh grml-zsh-config vim git \
+        # Fonts
+        noto-fonts noto-fonts-extra noto-fonts-emoji \
+        ttf-droid ttf-dejavu ttf-liberation ttf-fira-code \
+        ttf-fira-mono ttf-roboto cantarell-fonts \
+        # Application
+        discord libpulse
 
 RUN pacman -Scc --noconfirm
 RUN rm -rf /tmp/*

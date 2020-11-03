@@ -7,7 +7,7 @@ discord-widevine plugin installed, so you can watch Netflix or listen to spotify
 `docker build -t discord .`
 
 ## Seccomp
-Be sure to add the `chrome.json` seccomp file to your docker-seccomp folder.  
+Be sure to add the `discord.json` seccomp file to your docker-seccomp folder.  
 This is probably located at something like `/etc/docker/seccomp/`.
 
 ## Run
