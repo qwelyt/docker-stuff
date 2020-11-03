@@ -1,0 +1,20 @@
+#!/bin/bash
+#	--user=$UID:1000 \
+docker-on-x run --rm \
+	-it \
+	--name dbeaver \
+	-e TZ=Europe/Stockholm \
+	-e GDK_SCALE \
+	-e GDK_DPI_SCALE \
+    -e GDK_SYNCHRONIZE \
+    -e NO_AT_BRIDGE=1 \
+	-v /etc/localtime:/etc/localtime:ro \
+	-v "$HOME"/.dbeaver/DBeaverData:/home/developer/.local/share/DBeaverData/ \
+    -v "$HOME"/.dbeaver/eclipse:/home/developer/.eclipse/ \
+	--device /dev/snd \
+	--device /dev/dri \
+	--device /dev/bus/usb \
+	--group-add audio \
+	--group-add video \
+	dbeaver
+
