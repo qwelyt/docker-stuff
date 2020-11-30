@@ -11,7 +11,7 @@ RUN pacman -Syyu --noconfirm \
 		sudo openssh zsh grml-zsh-config vim docker git \
 		noto-fonts noto-fonts-extra noto-fonts-emoji ttf-droid ttf-dejavu ttf-liberation \
 		libxrender freetype2 libxft libxtst \
-		jre-openjdk jdk-openjdk \
+		jre-openjdk jdk-openjdk go \
         jad maven \
         code
 
@@ -25,5 +25,6 @@ RUN mv /usr/share/icons/Adwaita/cursors /usr/share/icons/Adwaita/_cursors
 
 USER developer
 #ENTRYPOINT ["/usr/bin/zsh"]
-#ENTRYPOINT ["/usr/sbin/code"]
-CMD /usr/sbin/code & sleep infinity
+ENTRYPOINT ["/usr/sbin/code"]
+CMD ["--verbose"]
+#CMD /usr/sbin/code & sleep infinity
