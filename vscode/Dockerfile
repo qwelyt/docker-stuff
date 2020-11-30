@@ -23,8 +23,13 @@ RUN useradd -m -G wheel,docker -s /bin/zsh $USERNAME \
 
 RUN mv /usr/share/icons/Adwaita/cursors /usr/share/icons/Adwaita/_cursors
 
+COPY start.sh start.sh
+RUN chmod +x start.sh
+
 USER developer
 #ENTRYPOINT ["/usr/bin/zsh"]
-ENTRYPOINT ["/usr/sbin/code"]
-CMD ["--verbose"]
+#CMD ["QT_X11_NO_MITSHM=1 /usr/sbin/code","--verbose"]
+#ENTRYPOINT ["QT_X11_NO_MITSHM=1 /usr/sbin/code"]
+#CMD ["--verbose"]
 #CMD /usr/sbin/code & sleep infinity
+ENTRYPOINT ["/start.sh"]
