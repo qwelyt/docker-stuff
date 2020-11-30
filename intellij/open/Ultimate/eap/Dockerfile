@@ -4,14 +4,15 @@ ENV LANG C.UTF-8
 ENV USERNAME developer
 ENV BUILD build
 
+RUN groupadd --gid 976 docker
 RUN pacman -Syyu --noconfirm \
 	&& pacman -S --needed --noconfirm base-devel \
 	&& pacman -S --noconfirm \
 		iproute2 iputils mlocate tar wget \
-		sudo openssh zsh grml-zsh-config vim git \
+		sudo openssh zsh grml-zsh-config vim docker git \
 		noto-fonts noto-fonts-extra noto-fonts-emoji ttf-droid ttf-dejavu ttf-liberation \
 		libxrender freetype2 libxft libxtst \
-		jre-openjdk jdk-openjdk \
+		jre-openjdk jdk-openjdk java-openjfx python \
         jad maven 
 
 RUN useradd --no-create-home --shell=/bin/zsh $BUILD
@@ -36,8 +37,11 @@ RUN pacman -Scc --noconfirm
 RUN rm -rf /tmp/*
 
 RUN echo "%wheel ALL=(ALL) ALL" >> /etc/sudoers
-RUN useradd -m -G wheel -s /bin/zsh $USERNAME \
+RUN useradd -m -G wheel,docker -s /bin/zsh $USERNAME \
 	&& echo "$USERNAME:$USERNAME" | chpasswd
+
+RUN mv /usr/share/icons/Adwaita/cursors /usr/share/icons/Adwaita/_cursors
+RUN mkdir /opt/intellij-idea-ue-eap/plugins/terminal/.cache
 
 USER developer
 ENTRYPOINT ["/opt/intellij-idea-ue-eap/bin/idea.sh"]

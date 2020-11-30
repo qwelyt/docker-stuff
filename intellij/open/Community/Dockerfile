@@ -11,7 +11,7 @@ RUN pacman -Syyu --noconfirm \
 		sudo openssh zsh grml-zsh-config vim git \
 		noto-fonts noto-fonts-extra noto-fonts-emoji ttf-droid ttf-dejavu ttf-liberation \
 		libxrender freetype2 libxft libxtst \
-		jre-openjdk jdk-openjdk \
+		jre-openjdk jdk-openjdk java-openjfx \
         jad maven \
 		intellij-idea-community-edition
 
@@ -22,5 +22,6 @@ RUN useradd -m -G wheel -s /bin/zsh $USERNAME \
 	&& echo "$USERNAME:$USERNAME" | chpasswd
 
 USER developer
-#ENTRYPOINT ["/bin/zsh"]
-ENTRYPOINT ["/usr/sbin/idea"]
+ENTRYPOINT ["/bin/zsh"]
+#ENTRYPOINT ["/usr/sbin/idea"]
+#CMD ["--verbose"]

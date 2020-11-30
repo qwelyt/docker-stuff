@@ -5,6 +5,7 @@ docker run -it --rm \
 	-v "$HOME/.m2":/var/maven/.m2 \
 	-e MAVEN_CONFIG=/var/maven/.m2 \
 	-v "$(pwd)":/usr/src/app \
+    -v /var/run/docker.sock:/var/run/docker.sock \
 	-w /usr/src/app \
 	maven:3.6-jdk-11 \
 	mvn -Duser.home=/var/maven "$@"

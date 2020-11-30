@@ -39,6 +39,8 @@ RUN useradd -m -G wheel -s /bin/zsh $USERNAME \
 	&& echo "$USERNAME:$USERNAME" | chpasswd
 
 RUN mv /usr/share/icons/Adwaita/cursors /usr/share/icons/Adwaita/_cursors
+# make it possible to share your screen without everything just becoming black. Unfortunately also removes the red border.
+RUN rm -rf /usr/share/teams/resources/app.asar.unpacked/node_modules/slimcore/bin/rect-overlay
 
 # To be able to connect to hosts pulseaudio server and get sound
 COPY pulse-client.conf /etc/pulse/client.conf 
@@ -49,4 +51,5 @@ RUN usermod -aG audio $USERNAME
 USER developer
 #ENTRYPOINT ["/bin/zsh"]
 #ENTRYPOINT ["/usr/sbin/teams"]
+#CMD ["--verbose"]
 CMD /usr/sbin/teams & sleep infinity

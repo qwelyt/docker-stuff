@@ -1,20 +1,20 @@
 #!/bin/bash
 USER_ID=$(id -u)
 docker-on-x run --rm \
-	-it \
-	--name microsoft-teams \
-	-e TZ=Europe/Stockholm \
-	-v "${HOME}/Downloads:/home/developer/Downloads" \
-	-v "${HOME}/Pictures:/home/developer/Pictures" \
-	-v "${HOME}/Torrents:/home/developer/Torrents" \
-	-v "${HOME}/.microsoft/config:/home/developer/.config" \
-	-v /dev/shm:/dev/shm \
-	-v /etc/hosts:/etc/hosts \
-	-v /run/user/${USER_ID}/pulse:/run/user/1000/pulse \
-	--device /dev/snd \
-	--device /dev/dri \
-	--device /dev/video0 \
-	--device /dev/bus/usb \
-	--group-add audio \
-	--group-add video \
-    microsoft-teams
+        -it \
+        --name microsoft-teams \
+        -e TZ=Europe/Stockholm \
+        -v "${HOME}/Downloads:/home/developer/Downloads" \
+        -v "${HOME}/Pictures:/home/developer/Pictures" \
+        -v "${HOME}/Torrents:/home/developer/Torrents" \
+        -v "${HOME}/.microsoft/config:/home/developer/.config" \
+        -v /dev/shm:/dev/shm \
+        -v /etc/hosts:/etc/hosts \
+        -v /run/user/${USER_ID}/pulse:/run/user/1000/pulse \
+        --device /dev/snd \
+        --device /dev/dri \
+        --device /dev/video0 \
+        --device /dev/bus/usb \
+        --group-add audio \
+        --group-add video \
+        microsoft-teams "$@"
