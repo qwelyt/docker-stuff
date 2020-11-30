@@ -15,6 +15,7 @@ RUN pacman -S --noconfirm \
 	# font-noto font-noto-extra
 	# font-noto-emoji font-noto-cjk font-fira-code
 
+RUN mv /usr/share/icons/Adwaita/cursors /usr/share/icons/Adwaita/_cursors
 
 RUN useradd -m -G wheel -s /bin/zsh $USERNAME \
 	&& echo "$USERNAME:$USERNAME" | chpasswd

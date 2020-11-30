@@ -16,5 +16,6 @@ docker-on-x run --rm \
 	--device /dev/bus/usb \
 	--group-add audio \
 	--group-add video \
+    --net host \
 	dbeaver
 
