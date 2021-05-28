@@ -2,7 +2,7 @@
 USER_ID=$(id -u)
 docker-on-x run --rm \
     -it \
-    --name discord3 \
+    --name discord \
     -e TZ=Europe/Stockholm \
     -v "${HOME}/Downloads:/home/developer/Downloads" \
     -v "${HOME}/Pictures:/home/developer/Pictures" \
@@ -14,6 +14,7 @@ docker-on-x run --rm \
     --security-opt seccomp=/etc/docker/seccomp/discord.json \
     --device /dev/snd \
     --device /dev/dri \
+    --device /dev/video0 \
     --device /dev/bus/usb \
     --group-add audio \
     --group-add video \

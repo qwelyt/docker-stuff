@@ -5,6 +5,7 @@ docker-on-x run --rm \
     -v $HOME/code:/home/developer/code \
     -v $HOME/.m2:/home/developer/.m2 \
     -v $HOME/vscode/:/home/developer/.cache \
+    -v $HOME/vscode/go:/home/developer/go \
     -v $HOME/vscode/config/:/home/developer/.config \
     -v $HOME/vscode/oss:/home/developer/.vscode-oss \
     --device /dev/dri \

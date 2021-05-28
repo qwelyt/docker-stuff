@@ -1,4 +1,4 @@
-FROM archlinux/base
+FROM archlinux:base-devel
 
 ENV LANG C.UTF-8
 ENV USERNAME developer
@@ -6,7 +6,6 @@ ENV BUILD build
 
 RUN groupadd --gid 976 docker
 RUN pacman -Syyu --noconfirm \
-	&& pacman -S --needed --noconfirm base-devel \
 	&& pacman -S --noconfirm \
 		iproute2 iputils mlocate tar wget \
 		sudo openssh zsh grml-zsh-config vim docker git \
@@ -29,6 +28,12 @@ RUN mkdir /tmp/aur \
 	&& cd intellij-idea-ue-eap \
 	&& makepkg -sic --noconfirm
 
+RUN cd /tmp/aur \
+    && wget https://aur.archlinux.org/cgit/aur.git/snapshot/java-openjdk-bin.tar.gz \
+	&& tar xzf java-openjdk-bin.tar.gz \
+	&& cd java-openjdk-bin \
+	&& makepkg -sic --noconfirm
+
 USER root
 RUN userdel -r $BUILD
 RUN sed -i "/${BUILD} ALL=(ALL) NOPASSWD: ALL/d" /etc/sudoers
@@ -42,6 +47,9 @@ RUN useradd -m -G wheel,docker -s /bin/zsh $USERNAME \
 
 RUN mv /usr/share/icons/Adwaita/cursors /usr/share/icons/Adwaita/_cursors
 RUN mkdir /opt/intellij-idea-ue-eap/plugins/terminal/.cache
+RUN dbus-uuidgen --ensure=/etc/machine-id
+
+RUN archlinux-java set java-16-openjdk
 
 USER developer
 ENTRYPOINT ["/opt/intellij-idea-ue-eap/bin/idea.sh"]

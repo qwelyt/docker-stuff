@@ -1,7 +1,7 @@
 #!/bin/bash
 NAME=${@// /_}
 NAME=${NAME////_}
-#	--user=$UID:1000 \
+#   --user=$UID:1000 \
 docker-on-x run --rm \
 	-it \
 	--name openscad-$NAME \
@@ -16,5 +16,4 @@ docker-on-x run --rm \
 	--device /dev/bus/usb \
 	--group-add audio \
 	--group-add video \
-	openscad "$@"
-
+	openscad $@

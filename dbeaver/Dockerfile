@@ -1,5 +1,5 @@
 # dbeaver in a docker container
-FROM archlinux/base
+FROM archlinux:base-devel
 
 ENV LANG C.UTF-8
 ENV USERNAME developer

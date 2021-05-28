@@ -2,4 +2,5 @@
 docker-on-x run --rm \
     -it \
     --name jmc \
+	-v "${HOME}:${HOME}" \
     jmc "$@"

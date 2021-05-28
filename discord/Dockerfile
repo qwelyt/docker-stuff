@@ -1,4 +1,6 @@
-FROM archlinux/base
+FROM archlinux:base-devel
+ARG direct
+ARG version=0.0.15
 
 ENV LANG C.UTF-8
 ENV USERNAME developer
@@ -10,12 +12,22 @@ RUN pacman -Syyu --noconfirm \
         # Basic nice to haves
         iproute2 iputils mlocate tar wget \
         sudo openssh zsh grml-zsh-config vim git \
-        # Fonts
+        # Fonts 
         noto-fonts noto-fonts-extra noto-fonts-emoji \
         ttf-droid ttf-dejavu ttf-liberation ttf-fira-code \
         ttf-fira-mono ttf-roboto cantarell-fonts \
         # Application
-        discord libpulse
+        libpulse
+
+RUN if [[ -z "$direct" ]] ; then \
+        pacman -S --noconfirm discord \
+    ; else \
+        pacman -S --noconfirm libnotify libxss nss nspr gtk3 \
+        && cd /opt \
+        && curl -X GET https://dl.discordapp.net/apps/linux/$version/discord-$version.tar.gz --output discord.tar.gz \
+        && tar -xzf discord.tar.gz \
+        && ln -s /opt/Discord/Discord /usr/bin/discord \
+    ; fi
 
 RUN pacman -Scc --noconfirm
 RUN rm -rf /tmp/*
@@ -35,4 +47,5 @@ RUN usermod -aG audio $USERNAME
 USER $USERNAME
 
 ENTRYPOINT ["/usr/bin/discord"]
-#ENTRYPOINT ["/bin/zsh"] # Use for debugging stuff
+# Use for debugging stuff
+#ENTRYPOINT ["/bin/zsh"] 

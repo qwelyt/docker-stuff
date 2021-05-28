@@ -1,4 +1,4 @@
-FROM archlinux/base
+FROM archlinux:base-devel
 
 ENV LANG C.UTF-8
 ENV USERNAME developer
@@ -52,4 +52,4 @@ USER developer
 #ENTRYPOINT ["/bin/zsh"]
 #ENTRYPOINT ["/usr/sbin/teams"]
 #CMD ["--verbose"]
-CMD /usr/sbin/teams & sleep infinity
+CMD /usr/sbin/teams --verbose & sleep infinity
