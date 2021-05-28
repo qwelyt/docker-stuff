@@ -1,0 +1,19 @@
+#!/bin/bash
+NAME=${@// /_}
+NAME=${NAME////_}
+#	--user=$UID:1000 \
+docker-on-x run --rm \
+    -it \
+    --name flashprint-$NAME \
+    -e TZ=Europe/Stockholm \
+    -e GDK_SCALE \
+    -e GDK_DPI_SCALE \
+    -v /etc/localtime:/etc/localtime:ro \
+    -v "$PWD":/files/ \
+    -v "$HOME"/.config/flashprint:/root/.FlashPrint \
+    --device /dev/snd \
+    --device /dev/dri \
+    --device /dev/bus/usb \
+    --group-add audio \
+    --group-add video \
+    flashprint "$@"
