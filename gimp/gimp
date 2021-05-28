@@ -1,0 +1,15 @@
+#!/bin/bash
+USER_ID=$(id -u)
+docker-on-x run --rm \
+	-it \
+	--name gimp \
+	-e TZ=Europe/Stockholm \
+	-v "${HOME}/Downloads:/home/developer/Downloads" \
+	-v "${HOME}/Pictures:/home/developer/Pictures" \
+	--device /dev/snd \
+	--device /dev/dri \
+	--device /dev/video0 \
+	--device /dev/bus/usb \
+	--group-add audio \
+	--group-add video \
+    gimp $@
