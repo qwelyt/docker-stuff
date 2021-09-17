@@ -10,8 +10,10 @@ COPY . .
 
 # Bootstrap packer https://github.com/wbthomason/packer.nvim#bootstrapping
 RUN nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+#RUN nvim --headless -c 'autocmd User PackerComplete quitall' -c "lua require('packer').sync()"
 
 
 WORKDIR /project
 
-ENTRYPOINT ["/usr/bin/nvim"]
+#ENTRYPOINT ["/usr/bin/nvim"]
+ENTRYPOINT ["bash"]

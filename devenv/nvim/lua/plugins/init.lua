@@ -1,8 +1,9 @@
-local present, packer = pcall(require, "plugins.packerInit")
+local present, packer = pcall(require, "packer")
 
 if not present then
-    print "Unable to find packer"
-    return false
+    local installer = require("plugins.packerInstaller")
+    installer.installPacker()
+    packer = require("packer")
 end
 
 return packer.startup(function()
