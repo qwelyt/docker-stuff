@@ -1,4 +1,4 @@
-FROM archlinux/base
+FROM archlinux:base-devel
 
 ENV LANG C.UTF-8
 ENV USERNAME developer
@@ -11,7 +11,7 @@ RUN pacman -Syyu --noconfirm \
 		sudo openssh zsh grml-zsh-config vim docker git \
 		noto-fonts noto-fonts-extra noto-fonts-emoji ttf-droid ttf-dejavu ttf-liberation \
 		libxrender freetype2 libxft libxtst \
-		jre-openjdk jdk-openjdk go \
+		jre-openjdk jdk-openjdk go rustup \
         jad maven \
         code
 
@@ -27,6 +27,7 @@ COPY start.sh start.sh
 RUN chmod +x start.sh
 
 USER developer
+RUN rustup default stable
 #ENTRYPOINT ["/usr/bin/zsh"]
 #CMD ["QT_X11_NO_MITSHM=1 /usr/sbin/code","--verbose"]
 #ENTRYPOINT ["QT_X11_NO_MITSHM=1 /usr/sbin/code"]

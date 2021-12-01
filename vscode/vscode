@@ -1,4 +1,5 @@
 #!/bin/bash
+#    --device /dev/dri \
 docker-on-x run --rm \
     -it \
     --name vscode \
@@ -8,5 +9,5 @@ docker-on-x run --rm \
     -v $HOME/vscode/go:/home/developer/go \
     -v $HOME/vscode/config/:/home/developer/.config \
     -v $HOME/vscode/oss:/home/developer/.vscode-oss \
-    --device /dev/dri \
+	--security-opt seccomp=/etc/docker/seccomp/chrome.json \
     vscode "$@"

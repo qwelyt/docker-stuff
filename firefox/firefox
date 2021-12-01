@@ -1,4 +1,6 @@
 #!/bin/bash
+
+	#--device /dev/video0 \
 USER_ID=$(id -u)
 docker-on-x run --rm \
 	-it \
@@ -14,7 +16,6 @@ docker-on-x run --rm \
 	-v /run/user/${USER_ID}/pulse:/run/user/1000/pulse \
 	--device /dev/snd \
 	--device /dev/dri \
-	--device /dev/video0 \
 	--device /dev/bus/usb \
 	--group-add audio \
 	--group-add video \
