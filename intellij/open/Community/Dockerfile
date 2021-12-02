@@ -14,7 +14,7 @@ RUN pacman -Syyu --noconfirm \
 		sudo openssh zsh grml-zsh-config vim docker git \
 		noto-fonts noto-fonts-extra noto-fonts-emoji ttf-droid ttf-dejavu ttf-liberation ttf-jetbrains-mono \
 		libxrender freetype2 libxft libxtst \
-		jre-openjdk jdk-openjdk java-openjfx python \
+		jre-openjdk jdk-openjdk java-openjfx python rustup \
         jad maven \
 		intellij-idea-community-edition
 
@@ -44,6 +44,8 @@ RUN archlinux-java set java-17-openjdk
 
 USER developer
 RUN mkdir -p /home/developer/.cache/JetBrains
+
+RUN rustup install stable && rustup default stable
 #ENTRYPOINT ["/bin/zsh"]
 ENTRYPOINT ["/usr/sbin/idea"]
 #CMD ["--verbose"]
