@@ -8,5 +8,6 @@ docker-on-x run --rm \
     -v $HOME/vscode/go:/home/developer/go \
     -v $HOME/vscode/config/:/home/developer/.config \
     -v $HOME/vscode/oss:/home/developer/.vscode-oss \
+    --security-opt seccomp=/etc/docker/seccomp/chrome.json \
     --device /dev/dri \
     vscode "$@"

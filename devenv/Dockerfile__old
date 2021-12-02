@@ -1,0 +1,74 @@
+FROM archlinux:base-devel
+
+ENV USERNAME developer
+ENV BUILD build
+
+ARG DOCKER_GID=3000
+
+RUN groupadd -g $DOCKER_GID docker
+
+RUN pacman -Syyu --noconfirm \
+	&& pacman -S --noconfirm \
+        mlocate tar \
+        sudo openssh zsh grml-zsh-config docker git neovim nodejs \
+        noto-fonts noto-fonts-extra noto-fonts-emoji ttf-droid ttf-dejavu ttf-liberation ttf-jetbrains-mono \
+        jre-openjdk jdk-openjdk java-openjfx \
+        jad maven
+
+
+RUN cd /tmp \
+    && curl -X GET 'https://download.java.net/java/GA/jdk15.0.2/0d1cfde4252546c6931946de8db48ee2/7/GPL/openjdk-15.0.2_linux-x64_bin.tar.gz' --output jdk15.0.2.tar.gz \
+    && tar xzf jdk15.0.2.tar.gz \
+    && mv jdk-15.0.2 /usr/lib/jvm/java-15-openjdk
+
+RUN useradd --shell=/bin/zsh $BUILD
+RUN usermod -L $BUILD
+RUN echo "$BUILD ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+
+USER $BUILD
+
+
+#RUN cd /tmp \
+#    && curl -X GET 'https://aur.archlinux.org/cgit/aur.git/snapshot/java-language-server.tar.gz' --output java-language-server.tar.gz \
+#    && tar xzf java-language-server.tar.gz \
+#    && cd java-language-server \
+#    && makepkg -sic --noconfirm
+
+RUN mkdir /tmp/aur \
+	&& cd /tmp/aur \
+    && curl -X GET 'https://aur.archlinux.org/cgit/aur.git/snapshot/nerd-fonts-complete.tar.gz' --output fonts.tar.gz \
+    && tar xzf fonts.tar.gz \
+    && cd nerd-fonts-complete \
+	&& makepkg -sic --noconfirm
+
+USER root
+
+RUN userdel -r $BUILD && rm -rf /home/$BUILD
+RUN sed -i "/${BUILD} ALL=(ALL) NOPASSWD: ALL/d" /etc/sudoers
+
+RUN pacman -Scc --noconfirm
+RUN rm -rf /tmp/*
+
+RUN echo "%wheel ALL=(ALL) ALL" >> /etc/sudoers
+RUN useradd -m -G wheel,docker -s /bin/zsh $USERNAME \
+	&& echo "$USERNAME:$USERNAME" | chpasswd
+
+RUN mv /usr/share/icons/Adwaita/cursors /usr/share/icons/Adwaita/_cursors
+RUN dbus-uuidgen --ensure=/etc/machine-id
+
+RUN archlinux-java set java-16-openjdk
+
+COPY init.vim coc-settings.json coc.vim /tmp/
+RUN chown $USERNAME:$USERNAME /tmp/init.vim /tmp/coc-settings.json /tmp/coc.vim
+
+USER developer
+
+RUN curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+RUN mkdir -p "$HOME"/.config/nvim/plug-config
+RUN mv /tmp/{init.vim,coc-settings.json} "$HOME"/.config/nvim/ && mv /tmp/coc.vim "$HOME"/.config/nvim/plug-config/
+
+RUN nvim --headless +PlugInstall +qa
+
+ENTRYPOINT ["/bin/zsh"]

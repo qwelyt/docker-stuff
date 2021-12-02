@@ -10,4 +10,12 @@ return packer.startup(function()
     use {
         "wbthomason/packer.nvim",
     }
+    use {
+        "nvim-treesitter/nvim-treesitter",
+         event = "BufRead",
+    }
+    use {
+        "neovim/nvim-lspconfig",
+        config = require("plugins.config.lspconfig")
+    }
 end)

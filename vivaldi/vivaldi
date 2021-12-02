@@ -2,7 +2,7 @@
 USER_ID=$(id -u)
 docker-on-x run --rm \
 	-it \
-	--name chromium \
+	--name vivaldi \
 	-e TZ=Europe/Stockholm \
 	-v "${HOME}/Downloads:/home/developer/Downloads" \
 	-v "${HOME}/Pictures:/home/developer/Pictures" \
@@ -12,13 +12,10 @@ docker-on-x run --rm \
 	-v /dev/shm:/dev/shm \
 	-v /etc/hosts:/etc/hosts \
 	-v /run/user/${USER_ID}/pulse:/run/user/1000/pulse \
-	--security-opt seccomp=/etc/docker/seccomp/chrome.json \
 	--device /dev/snd \
 	--device /dev/dri \
 	--device /dev/video0 \
 	--device /dev/bus/usb \
 	--group-add audio \
 	--group-add video \
-	chromium #\
-	#	--user-data-dir=/home/developer/data \
-	#	--disk-cache-dir=/home/developer/cache \
+	vivaldi

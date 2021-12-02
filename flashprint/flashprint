@@ -10,7 +10,7 @@ docker-on-x run --rm \
     -e GDK_DPI_SCALE \
     -v /etc/localtime:/etc/localtime:ro \
     -v "$PWD":/files/ \
-    -v "$HOME"/.config/flashprint:/root/.FlashPrint \
+    -v "$HOME"/.config/flashprint:/root/.FlashPrint5 \
     --device /dev/snd \
     --device /dev/dri \
     --device /dev/bus/usb \

@@ -28,11 +28,11 @@ RUN mkdir /tmp/aur \
 	&& cd intellij-idea-ue-eap \
 	&& makepkg -sic --noconfirm
 
-RUN cd /tmp/aur \
-    && wget https://aur.archlinux.org/cgit/aur.git/snapshot/java-openjdk-bin.tar.gz \
-	&& tar xzf java-openjdk-bin.tar.gz \
-	&& cd java-openjdk-bin \
-	&& makepkg -sic --noconfirm
+#RUN cd /tmp/aur \
+#    && wget https://aur.archlinux.org/cgit/aur.git/snapshot/java-openjdk-bin.tar.gz \
+#	&& tar xzf java-openjdk-bin.tar.gz \
+#	&& cd java-openjdk-bin \
+#	&& makepkg -sic --noconfirm
 
 USER root
 RUN userdel -r $BUILD
@@ -49,8 +49,10 @@ RUN mv /usr/share/icons/Adwaita/cursors /usr/share/icons/Adwaita/_cursors
 RUN mkdir /opt/intellij-idea-ue-eap/plugins/terminal/.cache
 RUN dbus-uuidgen --ensure=/etc/machine-id
 
-RUN archlinux-java set java-16-openjdk
+#RUN archlinux-java set java-16-openjdk
 
-USER developer
+
+USER $USERNAME
+RUN mkdir -p /home/developer/.cache/{dconf,JetBrains}
 ENTRYPOINT ["/opt/intellij-idea-ue-eap/bin/idea.sh"]
 ##ENTRYPOINT ["/usr/sbin/intellij-idea-ultimate-edition"]

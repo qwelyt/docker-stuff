@@ -1,10 +1,12 @@
 FROM archlinux:base-devel
 
+ARG DOCKER_GID=3000
+
 ENV LANG C.UTF-8
 ENV USERNAME developer
 ENV BUILD build
 
-RUN groupadd -g 976 docker
+RUN groupadd -g $DOCKER_GID docker
 
 RUN pacman -Syyu --noconfirm \
 	&& pacman -S --noconfirm \
@@ -16,23 +18,15 @@ RUN pacman -Syyu --noconfirm \
         jad maven \
 		intellij-idea-community-edition
 
-RUN useradd --no-create-home --shell=/bin/zsh $BUILD
-RUN usermod -L $BUILD
-RUN echo "$BUILD ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-RUN echo "root ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+RUN cd /tmp \
+    && curl -X GET 'https://download.java.net/java/GA/jdk15.0.2/0d1cfde4252546c6931946de8db48ee2/7/GPL/openjdk-15.0.2_linux-x64_bin.tar.gz' --output jdk15.0.2.tar.gz \
+    && tar xzf jdk15.0.2.tar.gz \
+    && mv jdk-15.0.2 /usr/lib/jvm/java-15-openjdk
 
-USER $BUILD
-
-RUN mkdir /tmp/aur \
-	&& cd /tmp/aur \
-    && wget https://aur.archlinux.org/cgit/aur.git/snapshot/java-openjdk-bin.tar.gz \
-	&& tar xzf java-openjdk-bin.tar.gz \
-	&& cd java-openjdk-bin \
-	&& makepkg -sic --noconfirm
-
-USER root
-RUN userdel -r $BUILD
-RUN sed -i "/${BUILD} ALL=(ALL) NOPASSWD: ALL/d" /etc/sudoers
+RUN cd /tmp \
+    && curl -X GET 'https://download.java.net/java/GA/jdk17/0d483333a00540d886896bac774ff48b/35/GPL/openjdk-17_linux-x64_bin.tar.gz' --output jdk17.tar.gz \
+    && tar xzf jdk17.tar.gz \
+    && mv jdk-17 /usr/lib/jvm/java-17-openjdk
 
 RUN pacman -Scc --noconfirm
 RUN rm -rf /tmp/*
@@ -46,9 +40,10 @@ RUN gpasswd -a $USERNAME wheel
 RUN mv /usr/share/icons/Adwaita/cursors /usr/share/icons/Adwaita/_cursors
 RUN dbus-uuidgen --ensure=/etc/machine-id
 
-RUN archlinux-java set java-16-openjdk
+RUN archlinux-java set java-17-openjdk
 
 USER developer
+RUN mkdir -p /home/developer/.cache/JetBrains
 #ENTRYPOINT ["/bin/zsh"]
 ENTRYPOINT ["/usr/sbin/idea"]
 #CMD ["--verbose"]

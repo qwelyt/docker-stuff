@@ -1,0 +1,7 @@
+#!/bin/bash
+
+docker run -it --rm \
+    --name arch-rust \
+	-e TZ=Europe/Stockholm \
+	-v $HOME/code:/home/developer/code \
+    arch-rust

@@ -1,4 +1,4 @@
-FROM archlinux:base-devel
+FROM archlinux/base
 
 ENV LANG C.UTF-8
 ENV USERNAME developer
@@ -14,9 +14,8 @@ RUN pacman -Syyu --noconfirm \
 		noto-fonts noto-fonts-extra noto-fonts-emoji \
 		ttf-droid ttf-dejavu ttf-liberation ttf-fira-code \
 		ttf-fira-mono ttf-roboto cantarell-fonts \
-		# Application
-		chromium
-
+        # Other
+        ffmpeg
 
 RUN useradd --no-create-home --shell=/bin/zsh $BUILD
 RUN usermod -L $BUILD
@@ -25,13 +24,28 @@ RUN echo "root ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 USER $BUILD
 
-RUN mkdir /tmp/aur \
-	&& cd /tmp/aur \
-	&& wget https://aur.archlinux.org/cgit/aur.git/snapshot/chromium-widevine.tar.gz \
-	&& tar xzf chromium-widevine.tar.gz \
-	&& cd chromium-widevine \
-	&& makepkg -sic --noconfirm
+RUN mkdir /tmp/aur
 
+RUN cd /tmp/aur \
+    && wget https://aur.archlinux.org/cgit/aur.git/snapshot/vivaldi.tar.gz \
+	&& tar xzf vivaldi.tar.gz \
+	&& cd vivaldi \
+	&& makepkg -sic --noconfirm \
+    && cd /
+
+#RUN cd /tmp/aur \
+#    && wget https://aur.archlinux.org/cgit/aur.git/snapshot/vivaldi-ffmpeg-codecs.tar.gz \
+#    && tar xzf vivaldi-ffmpeg-codecs.tar.gz \
+#    && cd vivaldi-ffmpeg-codecs \
+#    && makepkg -sic --noconfirm \
+#    && cd /
+
+RUN cd /tmp/aur \
+    && wget https://aur.archlinux.org/cgit/aur.git/snapshot/vivaldi-widevine.tar.gz \
+    && tar xzf vivaldi-widevine.tar.gz \
+    && cd vivaldi-widevine \
+    && makepkg -sic --noconfirm \
+    && cd /
 
 USER root
 
@@ -55,7 +69,6 @@ RUN usermod -aG audio $USERNAME
 
 USER $USERNAME
 
-#ENTRYPOINT ["/usr/sbin/chromium"]
-#CMD ["--user-data-dir=/home/developer/data", "--disk-cache-dir=/home/developer/cache"]
+ENTRYPOINT ["/bin/vivaldi-stable"]
 
-ENTRYPOINT ["/bin/zsh"] # Use for debugging stuff
+#ENTRYPOINT ["/bin/zsh"] # Use for debugging stuff

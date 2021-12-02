@@ -1,55 +1,16 @@
-FROM archlinux:base-devel
+FROM ubuntu
 
-ENV LANG C.UTF-8
-ENV USERNAME developer
-ENV BUILD build
+RUN apt-get update \
+    && apt-get upgrade -y
 
-RUN pacman -Syyu --noconfirm \
-	&& pacman -S --needed --noconfirm base-devel \
-	&& pacman -S --noconfirm \
-		iproute2 iputils mlocate tar wget \
-		sudo openssh zsh grml-zsh-config vim git \
-		noto-fonts noto-fonts-extra noto-fonts-emoji ttf-droid ttf-dejavu ttf-liberation \
-		libxrender freetype2 libxft libxtst \
-                libpulse
+RUN apt-get install -y \
+    curl \
+    fonts-noto-color-emoji \
+    libsecret-1-0 \
+    pulseaudio
 
-RUN useradd --no-create-home --shell=/bin/zsh $BUILD
-RUN usermod -L $BUILD
-RUN echo "$BUILD ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-RUN echo "root ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+RUN curl -L "https://teams.microsoft.com/downloads/desktopurl?env=production&plat=linux&arch=x64&download=true&linuxArchiveType=deb" > /tmp/teams.deb \
+	&& apt-get install -y /tmp/teams.deb \
+	&& rm /tmp/teams.deb
 
-USER $BUILD
-
-RUN mkdir /tmp/aur \
-	&& cd /tmp/aur \
-    && wget https://aur.archlinux.org/cgit/aur.git/snapshot/teams.tar.gz \
-	&& tar xzf teams.tar.gz \
-	&& cd teams \
-	&& makepkg -sic --noconfirm
-
-USER root
-RUN userdel -r $BUILD
-RUN sed -i "/${BUILD} ALL=(ALL) NOPASSWD: ALL/d" /etc/sudoers
-
-RUN pacman -Scc --noconfirm
-RUN rm -rf /tmp/*
-
-RUN echo "%wheel ALL=(ALL) ALL" >> /etc/sudoers
-RUN useradd -m -G wheel -s /bin/zsh $USERNAME \
-	&& echo "$USERNAME:$USERNAME" | chpasswd
-
-RUN mv /usr/share/icons/Adwaita/cursors /usr/share/icons/Adwaita/_cursors
-# make it possible to share your screen without everything just becoming black. Unfortunately also removes the red border.
-RUN rm -rf /usr/share/teams/resources/app.asar.unpacked/node_modules/slimcore/bin/rect-overlay
-
-# To be able to connect to hosts pulseaudio server and get sound
-COPY pulse-client.conf /etc/pulse/client.conf 
-
-# Also for sound
-RUN usermod -aG audio $USERNAME 
-
-USER developer
-#ENTRYPOINT ["/bin/zsh"]
-#ENTRYPOINT ["/usr/sbin/teams"]
-#CMD ["--verbose"]
-CMD /usr/sbin/teams --verbose & sleep infinity
+CMD /bin/bash

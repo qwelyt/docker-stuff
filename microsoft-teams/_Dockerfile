@@ -7,16 +7,11 @@ ENV BUILD build
 RUN pacman -Syyu --noconfirm \
 	&& pacman -S --needed --noconfirm base-devel \
 	&& pacman -S --noconfirm \
-		# Basic nice to haves
 		iproute2 iputils mlocate tar wget \
-		sudo openssh zsh grml-zsh-config vim git \
-		# Fonts
-		noto-fonts noto-fonts-extra noto-fonts-emoji \
-		ttf-droid ttf-dejavu ttf-liberation ttf-fira-code \
-		ttf-fira-mono ttf-roboto cantarell-fonts \
-		# Application
-		chromium
-
+		sudo openssh zsh grml-zsh-config vim git strace \
+		noto-fonts noto-fonts-extra noto-fonts-emoji ttf-droid ttf-dejavu ttf-liberation \
+		libxrender freetype2 libxft libxtst \
+                libpulse
 
 RUN useradd --no-create-home --shell=/bin/zsh $BUILD
 RUN usermod -L $BUILD
@@ -27,14 +22,12 @@ USER $BUILD
 
 RUN mkdir /tmp/aur \
 	&& cd /tmp/aur \
-	&& wget https://aur.archlinux.org/cgit/aur.git/snapshot/chromium-widevine.tar.gz \
-	&& tar xzf chromium-widevine.tar.gz \
-	&& cd chromium-widevine \
+    && wget https://aur.archlinux.org/cgit/aur.git/snapshot/teams.tar.gz \
+	&& tar xzf teams.tar.gz \
+	&& cd teams \
 	&& makepkg -sic --noconfirm
 
-
 USER root
-
 RUN userdel -r $BUILD
 RUN sed -i "/${BUILD} ALL=(ALL) NOPASSWD: ALL/d" /etc/sudoers
 
@@ -46,6 +39,8 @@ RUN useradd -m -G wheel -s /bin/zsh $USERNAME \
 	&& echo "$USERNAME:$USERNAME" | chpasswd
 
 RUN mv /usr/share/icons/Adwaita/cursors /usr/share/icons/Adwaita/_cursors
+# make it possible to share your screen without everything just becoming black. Unfortunately also removes the red border.
+RUN rm -rf /usr/share/teams/resources/app.asar.unpacked/node_modules/slimcore/bin/rect-overlay
 
 # To be able to connect to hosts pulseaudio server and get sound
 COPY pulse-client.conf /etc/pulse/client.conf 
@@ -53,9 +48,8 @@ COPY pulse-client.conf /etc/pulse/client.conf
 # Also for sound
 RUN usermod -aG audio $USERNAME 
 
-USER $USERNAME
-
-#ENTRYPOINT ["/usr/sbin/chromium"]
-#CMD ["--user-data-dir=/home/developer/data", "--disk-cache-dir=/home/developer/cache"]
-
-ENTRYPOINT ["/bin/zsh"] # Use for debugging stuff
+USER developer
+ENTRYPOINT ["/bin/zsh"]
+#ENTRYPOINT ["/usr/sbin/teams"]
+#CMD ["--verbose"]
+#CMD /usr/sbin/teams --verbose & sleep infinity

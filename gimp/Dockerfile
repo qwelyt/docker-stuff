@@ -26,6 +26,11 @@ RUN useradd -m -G wheel -s /bin/zsh $USERNAME \
 
 RUN dbus-uuidgen --ensure=/etc/machine-id
 
-USER $USERNAME
+COPY start.sh /usr/bin/startGimp
+RUN chmod +x /usr/bin/startGimp
 
-ENTRYPOINT ["/usr/sbin/gimp"]
+USER $USERNAME
+WORKDIR /home/${USERNAME}
+
+ENTRYPOINT ["/usr/bin/startGimp"]
+#ENTRYPOINT ["/bin/bash"]
