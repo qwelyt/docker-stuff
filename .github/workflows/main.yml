@@ -28,7 +28,7 @@ jobs:
         with:
           context: OpenSCAD/
           push: true
-          tags: ${{ env.REPO }}:openscad-$GITHUB_SHA
+          tags: ${{ env.REPO }}:openscad-${{ github.GITHUB_SHA }}
 #      - name: Build and publish
 #        run: |
 #          cd OpenSCAD
