@@ -17,22 +17,14 @@ env:
  OS: ubuntu-latest
 
 jobs:
-  checkoutAndLogin:
-    name: Checkout and Login
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_TOKEN }} 
-          
   OpenSCAD:
     if: ${{ github.event.inputs.app == 'OpenSCAD' }}
-    needs: checkoutAndLogin
     name: Build OpenScad container
     runs-on: ubuntu-latest
     steps:
+      - uses: ./github/workflows/checkout_and_login.yml
+        with:
+          secrets: inherit
       - uses: docker/build-push-action@v3
         with:
           context: OpenSCAD/
