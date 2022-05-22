@@ -17,10 +17,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-#      
-#      - name: Build and publish
-#      - run: |
-#          cd OpenSCAD
-#          echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}"
-#          docker build . --file Dockerfile --tag ${{ env.REPO }}:openscad-$GITHUB_SHA
-#          docker push ${{ env.REPO }}:openscad-$GITHUB_SHA
+      
+      - name: Build and publish
+        run: |
+          cd OpenSCAD
+          echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}"
+          docker build . --file Dockerfile --tag ${{ env.REPO }}:openscad-$GITHUB_SHA
+          docker push ${{ env.REPO }}:openscad-$GITHUB_SHA
