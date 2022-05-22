@@ -31,7 +31,7 @@ jobs:
         with:
           context: OpenSCAD/
           push: true
-          tags: qwelyt/apps:openscad-${{ github.sha }}
+          tags: qwelyt/apps:openscad , qwelyt/apps:openscad-${{ github.sha }}
 #      - name: Build and publish
 #        run: |
 #          cd OpenSCAD
