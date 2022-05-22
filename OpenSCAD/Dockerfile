@@ -1,5 +1,5 @@
 # OpenScad in a docker container
-FROM archlinux/base
+FROM archlinux:base
 
 RUN pacman -Syu --noconfirm
 RUN pacman -S --noconfirm \
