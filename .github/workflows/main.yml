@@ -13,7 +13,7 @@ on:
           - Firefox
 
 env:
- REPO: ${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.DOCKER_HUB_REPO }}
+ REPO: qwelyt/apps #${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.DOCKER_HUB_REPO }}
  OS: ubuntu-latest
 
 jobs:
