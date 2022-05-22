@@ -5,36 +5,36 @@ on:
     inputs:
       app:
         description: The app to build
-        type: string
         required: true
+        type: choice
+        options:
+          - OpenSCAD
+          - CQ-Editor
+          - Firefox
 
 env:
  REPO: ${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.DOCKER_HUB_REPO }}
+ OS: ubuntu-latest
 
 jobs:
-  OpenSCAD:
-    name: Build OpenSCAD container
-    runs-on: ubuntu-latest
+  checkoutAndLogin:
+    name: Checkout and Login
+    runs-on: ${{ env.OS }}
     steps:
       - uses: actions/checkout@v3
-      
       - uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }} 
-      
-      - run: echo $GITHUB_SHA
-      - run: echo ${{ github.sha }}
           
-      - name: Build and push
-        uses: docker/build-push-action@v3
+  OpenSCAD:
+    if: ${{ github.event.inputs.app == 'OpenSCAD' }}
+    needs: checkoutAndLogin
+    name: Build OpenScad container
+    runs-on: ${{ env.OS }}
+    steps:
+      - uses: docker/build-push-action@v3
         with:
           context: OpenSCAD/
           push: true
-          tags: qwelyt/apps:openscad , qwelyt/apps:openscad-${{ github.sha }}
-#      - name: Build and publish
-#        run: |
-#          cd OpenSCAD
-#          echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}"
-#          docker build . --file Dockerfile --tag ${{ env.REPO }}:openscad-$GITHUB_SHA
-#          docker push ${{ env.REPO }}:openscad-$GITHUB_SHA
+          tags: ${{ env.REPO }}:openscad , ${{ env.REPO }}:openscad-${{ github.sha }}
