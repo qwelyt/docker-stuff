@@ -22,7 +22,7 @@ jobs:
     name: Build OpenScad container
     runs-on: ubuntu-latest
     steps:
-      - uses: ./.github/workflows/checkout_and_login
+      - uses: .github/workflows/checkout_and_login.yml
         with:
           secrets: inherit
       - uses: docker/build-push-action@v3
