@@ -18,9 +18,20 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       
-      - name: Build and publish
-        run: |
-          cd OpenSCAD
-          echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}"
-          docker build . --file Dockerfile --tag ${{ env.REPO }}:openscad-$GITHUB_SHA
-          docker push ${{ env.REPO }}:openscad-$GITHUB_SHA
+      - uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }} 
+          
+      - name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          context: OpenSCAD/
+          push: true
+          tags: ${{ REPO }}:openscad-$GITHUB_SHA
+#      - name: Build and publish
+#        run: |
+#          cd OpenSCAD
+#          echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}"
+#          docker build . --file Dockerfile --tag ${{ env.REPO }}:openscad-$GITHUB_SHA
+#          docker push ${{ env.REPO }}:openscad-$GITHUB_SHA
