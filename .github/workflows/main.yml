@@ -22,13 +22,16 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }} 
+      
+      - run: echo $GITHUB_SHA
+      - run: echo ${{ github.sha }}
           
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
           context: OpenSCAD/
           push: true
-          tags: qwelyt/apps:openscad-${{ github.GITHUB_SHA }}
+          tags: qwelyt/apps:openscad-${{ github.sha }}
 #      - name: Build and publish
 #        run: |
 #          cd OpenSCAD
