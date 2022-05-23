@@ -16,12 +16,31 @@ env:
  REPO: qwelyt/apps
 
 jobs:
-  build:
+  OpenSCAD:
+    if: ${{ github.event.inputs.app == 'OpenSCAD' }}
     uses: ./.github/workflows/build-and-publish.yml
     with:
       tag: openscad
       repo: qwelyt/apps
       context: OpenSCAD/
+    secrets: inherit
+    
+  Firefox:
+    if: ${{ github.event.inputs.app == 'Firefox' }}
+    uses: ./.github/workflows/build-and-publish.yml
+    with:
+      tag: firefox
+      repo: qwelyt/apps
+      context: firefox/
+    secrets: inherit
+    
+  CQ-Editor:
+    if: ${{ github.event.inputs.app == 'CQ-Editor' }}
+    uses: ./.github/workflows/build-and-publish.yml
+    with:
+      tag: cq-editor
+      repo: qwelyt/apps
+      context: cadquery/cq-editor/
     secrets: inherit
 #  OpenSCAD:
 #    if: ${{ github.event.inputs.app == 'OpenSCAD' }}
