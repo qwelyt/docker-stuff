@@ -17,15 +17,12 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: qwelyt/actions/docker-stuff@master
-        with:
-          secrets: inherit
-          tag: openscad
-          repo: qwelyt/apps
-          contex: OpenSCAD/
+    uses: ./.github/workflows/build-and-publish.yml
+    with:
+      tag: openscad
+      repo: qwelyt/apps
+      contex: OpenSCAD/
+    secrets: inherit
 #  OpenSCAD:
 #    if: ${{ github.event.inputs.app == 'OpenSCAD' }}
 #    name: Build OpenScad container
