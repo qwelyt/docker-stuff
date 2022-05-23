@@ -14,9 +14,9 @@ RUN pacman -Syyu --noconfirm \
 		iproute2 iputils mlocate tar wget \
 		sudo openssh zsh grml-zsh-config vim docker git \
 		noto-fonts noto-fonts-extra noto-fonts-emoji ttf-droid ttf-dejavu ttf-liberation \
-		libxrender freetype2 libxft libxtst \
-		jre-openjdk jdk-openjdk go rustup \
-        jad maven \
+		libxrender freetype2 libxft libxtst mesa glu \
+		jre-openjdk jdk-openjdk go rustup python \
+        jad maven python-pip \
         code
 
 RUN pacman -Scc --noconfirm
@@ -32,6 +32,7 @@ RUN chmod +x start.sh
 
 USER developer
 RUN rustup toolchain install stable && rustup default stable
+RUN pip install cadquery
 #ENTRYPOINT ["/usr/bin/zsh"]
 #CMD ["QT_X11_NO_MITSHM=1 /usr/sbin/code","--verbose"]
 #ENTRYPOINT ["QT_X11_NO_MITSHM=1 /usr/sbin/code"]

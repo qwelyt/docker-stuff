@@ -1,17 +1,19 @@
 FROM archlinux:base-devel
+ARG DOCKER_GID=3000
 
 ENV LANG C.UTF-8
 ENV USERNAME developer
 ENV BUILD build
 
-RUN groupadd --gid 976 docker
+RUN groupadd -g $DOCKER_GID docker
+
 RUN pacman -Syyu --noconfirm \
 	&& pacman -S --noconfirm \
 		iproute2 iputils mlocate tar wget \
 		sudo openssh zsh grml-zsh-config vim docker git \
 		noto-fonts noto-fonts-extra noto-fonts-emoji ttf-droid ttf-dejavu ttf-liberation \
 		libxrender freetype2 libxft libxtst \
-		jre-openjdk jdk-openjdk java-openjfx python \
+		jre-openjdk jdk-openjdk java-openjfx python rustup \
         jad maven 
 
 RUN useradd --no-create-home --shell=/bin/zsh $BUILD
@@ -53,6 +55,7 @@ RUN dbus-uuidgen --ensure=/etc/machine-id
 
 
 USER $USERNAME
+RUN rustup install stable && rustup default stable
 RUN mkdir -p /home/developer/.cache/{dconf,JetBrains}
 ENTRYPOINT ["/opt/intellij-idea-ue-eap/bin/idea.sh"]
 ##ENTRYPOINT ["/usr/sbin/intellij-idea-ultimate-edition"]

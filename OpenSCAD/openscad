@@ -2,6 +2,7 @@
 NAME=${@// /_}
 NAME=${NAME////_}
 #   --user=$UID:1000 \
+#	openscad $@
 docker-on-x run --rm \
 	-it \
 	--name openscad-$NAME \
@@ -16,4 +17,4 @@ docker-on-x run --rm \
 	--device /dev/bus/usb \
 	--group-add audio \
 	--group-add video \
-	openscad $@
+    qwelyt/apps:openscad

@@ -1,11 +1,13 @@
 FROM archlinux:base-devel
 
+ARG UUCP_GID=987
 ARG DOCKER_GID=3000
 
 ENV LANG C.UTF-8
 ENV USERNAME developer
 ENV BUILD build
 
+#RUN groupmod -g $UUCP_GID uucp
 RUN groupadd -g $DOCKER_GID docker
 
 RUN pacman -Syyu --noconfirm \
@@ -14,6 +16,7 @@ RUN pacman -Syyu --noconfirm \
 		sudo openssh zsh grml-zsh-config vim docker git \
 		noto-fonts noto-fonts-extra noto-fonts-emoji ttf-droid ttf-dejavu ttf-liberation ttf-jetbrains-mono \
 		libxrender freetype2 libxft libxtst \
+        avrdude arduino-avr-core avr-gcc avr-libc \
 		jre-openjdk jdk-openjdk java-openjfx python rustup \
         jad maven \
 		intellij-idea-community-edition
@@ -36,8 +39,9 @@ RUN useradd -m -G wheel -s /bin/zsh $USERNAME \
 	&& echo "$USERNAME:$USERNAME" | chpasswd
 RUN gpasswd -a $USERNAME docker
 RUN gpasswd -a $USERNAME wheel
+RUN gpasswd -a $USERMANE $(grep "$UUCP_ID" /etc/group | cut -d':' -f1)
 
-RUN mv /usr/share/icons/Adwaita/cursors /usr/share/icons/Adwaita/_cursors
+#RUN mv /usr/share/icons/Adwaita/cursors /usr/share/icons/Adwaita/_cursors
 RUN dbus-uuidgen --ensure=/etc/machine-id
 
 RUN archlinux-java set java-17-openjdk
@@ -45,7 +49,10 @@ RUN archlinux-java set java-17-openjdk
 USER developer
 RUN mkdir -p /home/developer/.cache/JetBrains
 
-RUN rustup install stable && rustup default stable
+RUN rustup install stable  \
+    && rustup default stable \
+    && rustup toolchain install nightly \
+    && rustup component add rust-src --toolchain nightly
 #ENTRYPOINT ["/bin/zsh"]
 ENTRYPOINT ["/usr/sbin/idea"]
 #CMD ["--verbose"]
