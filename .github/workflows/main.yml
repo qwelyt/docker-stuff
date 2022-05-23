@@ -21,7 +21,7 @@ jobs:
     with:
       tag: openscad
       repo: qwelyt/apps
-      contex: OpenSCAD/
+      context: OpenSCAD/
     secrets: inherit
 #  OpenSCAD:
 #    if: ${{ github.event.inputs.app == 'OpenSCAD' }}
