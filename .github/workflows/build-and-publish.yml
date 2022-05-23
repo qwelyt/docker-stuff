@@ -1,0 +1,34 @@
+name: build-and-publish
+
+on: 
+  workflow_call:
+    inputs:
+      context:
+        type: string
+        required: true
+      tag:
+        type: string
+        required: true
+      repo:
+        type: string
+        required: true
+    secrets:
+      DOCKER_HUB_USERNAME:
+        required: true
+      DOCKER_HUB_TOKEN:
+        required: true
+jobs:
+  build-and-publish:
+      name: Build and publish ${{ inputs.tag }}
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v3
+        - uses: docker/login-action@v2
+          with:
+            username: ${{ secrets.DOCKER_HUB_USERNAME }}
+            password: ${{ secrets.DOCKER_HUB_TOKEN }}
+        - uses: docker/build-push-action@v3
+          with:
+            context: ${{ inputs.context }}
+            push: true
+            tags: ${{ inputs.repo }}:${{ inputs.tag }} , ${{ inputs.repo }}:${{ inputs.tag }}-${{ github.sha }}
