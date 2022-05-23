@@ -14,38 +14,47 @@ on:
 
 env:
  REPO: qwelyt/apps
- OS: ubuntu-latest
 
 jobs:
-  OpenSCAD:
-    if: ${{ github.event.inputs.app == 'OpenSCAD' }}
-    name: Build OpenScad container
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: docker/login-action@v2
+      - uses: ./.github/workflows/build-and-publish.yml
         with:
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_TOKEN }}
-      - uses: docker/build-push-action@v3
-        with:
-          context: OpenSCAD/
-          push: true
-          tags: ${{ env.REPO }}:openscad , ${{ env.REPO }}:openscad-${{ github.sha }}
-          
-  Firefox:
-    if: ${{ github.event.inputs.app == 'Firefox' }}
-    name: Build Firefox container
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_TOKEN }}
-      - uses: docker/build-push-action@v3
-        with:
-          context: firefox/
-          push: true
-          tags: ${{ env.REPO }}:firefox , ${{ env.REPO }}:firefox-${{ github.sha }}
+          secrets: inherit
+          tag: openscad
+          repo: qwelyt/apps
+          contex: OpenSCAD/
+#  OpenSCAD:
+#    if: ${{ github.event.inputs.app == 'OpenSCAD' }}
+#    name: Build OpenScad container
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v3
+#      - uses: docker/login-action@v2
+#        with:
+#          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+#          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+#      - uses: docker/build-push-action@v3
+#        with:
+#          context: OpenSCAD/
+#          push: true
+#          tags: ${{ env.REPO }}:openscad , ${{ env.REPO }}:openscad-${{ github.sha }}
+#          
+#  Firefox:
+#    if: ${{ github.event.inputs.app == 'Firefox' }}
+#    name: Build Firefox container
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v3
+#      - uses: docker/login-action@v2
+#        with:
+#          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+#          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+#      - uses: docker/build-push-action@v3
+#        with:
+#          context: firefox/
+#          push: true
+#          tags: ${{ env.REPO }}:firefox , ${{ env.REPO }}:firefox-${{ github.sha }}
 
