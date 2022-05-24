@@ -8,69 +8,196 @@ on:
         required: true
         type: choice
         options:
-          - OpenSCAD
+          - ArduinoIDE
           - CQ-Editor
+          - CadAssistant
+          - Chromium
+          - DBeaver
+          - Discord
           - Firefox
-
+          - Flashprint
+          - GIMP
+          - Intellij-Community
+          - Intellij-Ultimate
+          - Intellij-Ultimate-eap
+          - Java-Mission-Control
+          - LibreOffice
+          - MS-Teams
+          - OpenSCAD
+          - Slack
+          - VSCode
+          - VisualVM
 env:
  REPO: qwelyt/apps
 
 jobs:
-  OpenSCAD:
-    if: ${{ github.event.inputs.app == 'OpenSCAD' }}
+  ArduinoIDE:
+    if: ${{ github.event.inputs.app == 'ArduinoIDE' }}
     uses: ./.github/workflows/build-and-publish.yml
     with:
-      tag: openscad
       repo: qwelyt/apps
-      context: OpenSCAD/
+      tag: arduino-ide
+      context: arduino/
     secrets: inherit
-    
-  Firefox:
-    if: ${{ github.event.inputs.app == 'Firefox' }}
-    uses: ./.github/workflows/build-and-publish.yml
-    with:
-      tag: firefox
-      repo: qwelyt/apps
-      context: firefox/
-    secrets: inherit
-    
+
   CQ-Editor:
     if: ${{ github.event.inputs.app == 'CQ-Editor' }}
     uses: ./.github/workflows/build-and-publish.yml
     with:
-      tag: cq-editor
       repo: qwelyt/apps
+      tag: cq-editor
       context: cadquery/cq-editor/
     secrets: inherit
-#  OpenSCAD:
-#    if: ${{ github.event.inputs.app == 'OpenSCAD' }}
-#    name: Build OpenScad container
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v3
-#      - uses: docker/login-action@v2
-#        with:
-#          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-#          password: ${{ secrets.DOCKER_HUB_TOKEN }}
-#      - uses: docker/build-push-action@v3
-#        with:
-#          context: OpenSCAD/
-#          push: true
-#          tags: ${{ env.REPO }}:openscad , ${{ env.REPO }}:openscad-${{ github.sha }}
-#          
-#  Firefox:
-#    if: ${{ github.event.inputs.app == 'Firefox' }}
-#    name: Build Firefox container
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v3
-#      - uses: docker/login-action@v2
-#        with:
-#          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-#          password: ${{ secrets.DOCKER_HUB_TOKEN }}
-#      - uses: docker/build-push-action@v3
-#        with:
-#          context: firefox/
-#          push: true
-#          tags: ${{ env.REPO }}:firefox , ${{ env.REPO }}:firefox-${{ github.sha }}
 
+  CadAssistant:
+    if: ${{ github.event.inputs.app == 'CadAssistant' }}
+    uses: ./.github/workflows/build-and-publish.yml
+    with:
+      repo: qwelyt/apps
+      tag: cad-assistant
+      context: cad-assistant/
+    secrets: inherit
+
+  Chromium:
+    if: ${{ github.event.inputs.app == 'Chromium' }}
+    uses: ./.github/workflows/build-and-publish.yml
+    with:
+      repo: qwelyt/apps
+      tag: chromium
+      context: chromium/
+    secrets: inherit
+
+  DBeaver:
+    if: ${{ github.event.inputs.app == 'DBeaver' }}
+    uses: ./.github/workflows/build-and-publish.yml
+    with:
+      repo: qwelyt/apps
+      tag: discord
+      context: dbeaver/
+    secrets: inherit
+
+  Discord:
+    if: ${{ github.event.inputs.app == 'Discord' }}
+    uses: ./.github/workflows/build-and-publish.yml
+    with:
+      repo: qwelyt/apps
+      tag: discord
+      context: discord/
+    secrets: inherit
+
+  Firefox:
+    if: ${{ github.event.inputs.app == 'Firefox' }}
+    uses: ./.github/workflows/build-and-publish.yml
+    with:
+      repo: qwelyt/apps
+      tag: firefox
+      context: firefox/
+    secrets: inherit
+
+  Flashprint:
+    if: ${{ github.event.inputs.app == 'Flashprint' }}
+    uses: ./.github/workflows/build-and-publish.yml
+    with:
+      repo: qwelyt/apps
+      tag: flashprint
+      context: flashprint/
+    secrets: inherit
+
+  GIMP:
+    if: ${{ github.event.inputs.app == 'GIMP' }}
+    uses: ./.github/workflows/build-and-publish.yml
+    with:
+      repo: qwelyt/apps
+      tag: gimp
+      context: gimp/
+    secrets: inherit
+
+  Intellij-Community:
+    if: ${{ github.event.inputs.app == 'Intellij-Community' }}
+    uses: ./.github/workflows/build-and-publish.yml
+    with:
+      repo: qwelyt/apps
+      tag: intellij-ic
+      context: intellij/open/Community/
+    secrets: inherit
+
+  Intellij-Ultimate:
+    if: ${{ github.event.inputs.app == 'Intellij-Ultimate' }}
+    uses: ./.github/workflows/build-and-publish.yml
+    with:
+      repo: qwelyt/apps
+      tag: intellij-ultimate
+      context: intellij/open/Ultimate/
+    secrets: inherit
+
+  Intellij-Ultimate-EAP:
+    if: ${{ github.event.inputs.app == 'Intellij-Ultimate-eap' }}
+    uses: ./.github/workflows/build-and-publish.yml
+    with:
+      repo: qwelyt/apps
+      tag: intellij-ultimate-eap
+      context: intellij/open/Ultimate/eap/
+    secrets: inherit
+
+  Java-Mission-Control:
+    if: ${{ github.event.inputs.app == 'Java-Mission-Control' }}
+    uses: ./.github/workflows/build-and-publish.yml
+    with:
+      repo: qwelyt/apps
+      tag: java-mission-control
+      context: java-mission-control
+    secrets: inherit
+
+  LibreOffice:
+    if: ${{ github.event.inputs.app == 'LibreOffice' }}
+    uses: ./.github/workflows/build-and-publish.yml
+    with:
+      repo: qwelyt/apps
+      tag: libreoffice
+      context: libreoffice
+    secrets: inherit
+
+  MS-Teams:
+    if: ${{ github.event.inputs.app == 'MS-Teams' }}
+    uses: ./.github/workflows/build-and-publish.yml
+    with:
+      repo: qwelyt/apps
+      tag: microsoft-teams
+      context: 
+    secrets: inherit
+
+  OpenSCAD:
+    if: ${{ github.event.inputs.app == 'OpenSCAD' }}
+    uses: ./.github/workflows/build-and-publish.yml
+    with:
+      repo: qwelyt/apps
+      tag: openscad
+      context: OpenSCAD/
+    secrets: inherit
+
+  Slack:
+    if: ${{ github.event.inputs.app == 'LibreOffice' }}
+    uses: ./.github/workflows/build-and-publish.yml
+    with:
+      repo: qwelyt/apps
+      tag: libreoffice
+      context: libreoffice
+    secrets: inherit
+
+  Slack:
+    if: ${{ github.event.inputs.app == 'VSCode' }}
+    uses: ./.github/workflows/build-and-publish.yml
+    with:
+      repo: qwelyt/apps
+      tag: VSCode
+      context: VSCode
+    secrets: inherit
+    
+  vscode:
+    if: ${{ github.event.inputs.app == 'VSCode' }}
+    uses: ./.github/workflows/build-and-publish.yml
+    with:
+      repo: qwelyt/apps
+      tag: VSCode
+      context: VSCode
+    secrets: inherit
