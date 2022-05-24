@@ -39,12 +39,12 @@ RUN useradd -m -G wheel -s /bin/zsh $USERNAME \
 	&& echo "$USERNAME:$USERNAME" | chpasswd
 RUN gpasswd -a $USERNAME docker
 RUN gpasswd -a $USERNAME wheel
-RUN gpasswd -a $USERMANE $(grep "$UUCP_ID" /etc/group | cut -d':' -f1)
+RUN gpasswd -a $USERNAME $(grep "$UUCP_ID" /etc/group | cut -d':' -f1)
 
 #RUN mv /usr/share/icons/Adwaita/cursors /usr/share/icons/Adwaita/_cursors
 RUN dbus-uuidgen --ensure=/etc/machine-id
 
-RUN archlinux-java set java-17-openjdk
+RUN archlinux-java set java-18-openjdk
 
 USER developer
 RUN mkdir -p /home/developer/.cache/JetBrains
