@@ -39,7 +39,10 @@ RUN useradd -m -G wheel -s /bin/zsh $USERNAME \
 	&& echo "$USERNAME:$USERNAME" | chpasswd
 RUN gpasswd -a $USERNAME docker
 RUN gpasswd -a $USERNAME wheel
-RUN gpasswd -a $USERNAME $(grep "$UUCP_ID" /etc/group | cut -d':' -f1)
+RUN gpasswd -a $USERNAME uucp
+#RUN echo $(grep $UUCP_ID /etc/group | cut -d':' -f1) && echo $UUCP_ID
+#RUN "gpasswd -a $USERNAME $(grep ${UUCP_ID} /etc/group | cut -d':' -f1)"
+#RUN gpasswd -a ${USERNAME} $(grep "${UUCP_ID}" /etc/group | cut -d':' -f1)
 
 #RUN mv /usr/share/icons/Adwaita/cursors /usr/share/icons/Adwaita/_cursors
 RUN dbus-uuidgen --ensure=/etc/machine-id
