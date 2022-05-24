@@ -175,15 +175,6 @@ jobs:
       context: OpenSCAD/
     secrets: inherit
 
-  LibreOffice:
-    if: ${{ github.event.inputs.app == 'LibreOffice' }}
-    uses: ./.github/workflows/build-and-publish.yml
-    with:
-      repo: qwelyt/apps
-      tag: libreoffice
-      context: libreoffice
-    secrets: inherit
-
   Slack:
     if: ${{ github.event.inputs.app == 'Slack' }}
     uses: ./.github/workflows/build-and-publish.yml
