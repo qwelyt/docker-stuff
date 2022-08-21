@@ -1,0 +1,9 @@
+#!/bin/bash
+docker-on-x run --rm \
+    -it \
+    --name kicad \
+    -v $HOME/code:/home/developer/code \
+    -v $HOME/.kicad/cache:/home/developer/.cache \
+    -v $HOME/.kicad/local:/home/developer/.local \
+    -v $HOME/.kicad/config:/home/developer/.config \
+    qwelyt/apps:kicad "$@"
