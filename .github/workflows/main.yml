@@ -21,6 +21,7 @@ on:
           - Intellij-Ultimate
           - Intellij-Ultimate-eap
           - Java-Mission-Control
+          - KiCAD
           - LibreOffice
           - MS-Teams
           - OpenSCAD
@@ -146,6 +147,15 @@ jobs:
       repo: qwelyt/apps
       tag: java-mission-control
       context: java-mission-control
+    secrets: inherit
+
+  KiCAD:
+    if: ${{ github.event.inputs.app == 'KiCAD' }}
+    uses: ./.github/workflows/build-and-publish.yml
+    with:
+      repo: qwelyt/apps
+      tag: kicad
+      context: kicad
     secrets: inherit
 
   LibreOffice:
