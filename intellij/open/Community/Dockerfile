@@ -16,9 +16,10 @@ RUN pacman -Syyu --noconfirm \
 		sudo openssh zsh grml-zsh-config vim docker git \
 		noto-fonts noto-fonts-extra noto-fonts-emoji ttf-droid ttf-dejavu ttf-liberation ttf-jetbrains-mono \
 		libxrender freetype2 libxft libxtst \
-        avrdude arduino-avr-core avr-gcc avr-libc \
-		jre-openjdk jdk-openjdk java-openjfx python rustup \
-        jad maven \
+                avrdude arduino-avr-core avr-gcc avr-libc \
+		rustup arm-none-eabi-gdb qemu-arch-extra openocd \
+		jre-openjdk jdk-openjdk java-openjfx python \
+                jad maven \
 		intellij-idea-community-edition
 
 RUN cd /tmp \
@@ -47,7 +48,7 @@ RUN gpasswd -a $USERNAME uucp
 #RUN mv /usr/share/icons/Adwaita/cursors /usr/share/icons/Adwaita/_cursors
 RUN dbus-uuidgen --ensure=/etc/machine-id
 
-RUN archlinux-java set java-18-openjdk
+RUN archlinux-java set java-19-openjdk
 
 USER developer
 RUN mkdir -p /home/developer/.cache/JetBrains
