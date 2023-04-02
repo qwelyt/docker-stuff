@@ -1,6 +1,6 @@
 FROM archlinux:base-devel
 
-ARG UUCP_GID=987
+ARG UUCP_GID=986
 ARG DOCKER_GID=3000
 
 ENV LANG C.UTF-8
@@ -57,6 +57,8 @@ RUN rustup install stable  \
     && rustup default stable \
     && rustup toolchain install nightly \
     && rustup component add rust-src --toolchain nightly
+RUN cargo install ravedude
+RUN cargo install cargo-expand
 #ENTRYPOINT ["/bin/zsh"]
 ENTRYPOINT ["/usr/sbin/idea"]
 #CMD ["--verbose"]
