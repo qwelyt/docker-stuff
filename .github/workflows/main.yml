@@ -10,6 +10,7 @@ on:
         options:
           - ArduinoIDE
           - CQ-Editor
+          - CQ-Editor-jerns-fork
           - CadAssistant
           - Chromium
           - DBeaver
@@ -48,6 +49,15 @@ jobs:
       repo: qwelyt/apps
       tag: cq-editor
       context: cadquery/cq-editor/
+    secrets: inherit
+
+  CQ-Editor-jerns-fork:
+    if: ${{ github.event.inputs.app == 'CQ-Editor-jerns-fork' }}
+    uses: ./.github/workflows/build-and-publish.yml
+    with:
+      repo: qwelyt/apps
+      tag: cq-editor-jern
+      context: cadquery/cq-editor-jern/
     secrets: inherit
 
   CadAssistant:
