@@ -16,8 +16,9 @@ RUN pacman -Syyu --noconfirm \
 		noto-fonts noto-fonts-extra noto-fonts-emoji ttf-droid ttf-dejavu ttf-liberation \
 		libxrender freetype2 libxft libxtst mesa glu \
 		jre-openjdk jdk-openjdk go rustup python \
-        jad maven python-pip \
-        code
+        	jad maven python-pip \
+        	code
+
 
 RUN pacman -Scc --noconfirm
 
@@ -32,7 +33,7 @@ RUN chmod +x start.sh
 
 USER developer
 RUN rustup toolchain install stable && rustup default stable
-RUN pip install cadquery
+RUN python -m pip install git+https://github.com/gumyr/build123d
 #ENTRYPOINT ["/usr/bin/zsh"]
 #CMD ["QT_X11_NO_MITSHM=1 /usr/sbin/code","--verbose"]
 #ENTRYPOINT ["QT_X11_NO_MITSHM=1 /usr/sbin/code"]
