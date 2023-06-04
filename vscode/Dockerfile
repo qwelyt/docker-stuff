@@ -36,8 +36,8 @@ RUN chmod +x start.sh
 
 USER developer
 RUN rustup toolchain install stable && rustup default stable
-RUN pyenv exec python -m pip install git+https://github.com/gumyr/build123d
-RUN pyenv exec python -m pip install --pre "cadquery>=2.2"
+RUN pyenv exec pip install git+https://github.com/gumyr/build123d
+RUN pyenv exec pip install --pre "cadquery>=2.2"
 #ENTRYPOINT ["/usr/bin/zsh"]
 #CMD ["QT_X11_NO_MITSHM=1 /usr/sbin/code","--verbose"]
 #ENTRYPOINT ["QT_X11_NO_MITSHM=1 /usr/sbin/code"]
