@@ -19,8 +19,6 @@ RUN pacman -Syyu --noconfirm \
         	jad maven python-pip pyenv \
         	code
 
-RUN eval "$(pyenv ini -)"
-RUN pyenv install 3.10.11 && pyenv global 3.10.11
 
 
 RUN pacman -Scc --noconfirm
@@ -36,6 +34,9 @@ RUN chmod +x start.sh
 
 USER developer
 RUN rustup toolchain install stable && rustup default stable
+
+RUN eval "$(pyenv ini -)"
+RUN pyenv install 3.10.11 && pyenv global 3.10.11
 RUN pyenv exec pip install git+https://github.com/gumyr/build123d
 RUN pyenv exec pip install --pre "cadquery>=2.2"
 #ENTRYPOINT ["/usr/bin/zsh"]
