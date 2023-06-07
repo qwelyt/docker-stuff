@@ -48,7 +48,8 @@ RUN gpasswd -a $USERNAME uucp
 #RUN mv /usr/share/icons/Adwaita/cursors /usr/share/icons/Adwaita/_cursors
 RUN dbus-uuidgen --ensure=/etc/machine-id
 
-RUN archlinux-java set java-19-openjdk
+# Set java to the latest version. Hopefully at least. The latest version *should* be on the last line.
+RUN archlinux-java set $(archlinux-java status | tail -n1 | sed -e 's/^[ \t]*//' | col --spaces | cut -d' ' -f1,1)
 
 USER developer
 RUN mkdir -p /home/developer/.cache/JetBrains
