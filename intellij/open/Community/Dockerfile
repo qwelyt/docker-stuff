@@ -17,7 +17,7 @@ RUN pacman -Syyu --noconfirm \
 		noto-fonts noto-fonts-extra noto-fonts-emoji ttf-droid ttf-dejavu ttf-liberation ttf-jetbrains-mono \
 		libxrender freetype2 libxft libxtst \
                 avrdude arduino-avr-core avr-gcc avr-libc \
-		rustup arm-none-eabi-gdb qemu-arch-extra openocd \
+		rustup arm-none-eabi-gdb openocd \ # qemu-arch-extra <-- Seems to be gone, figure out what it was for...
 		jre-openjdk jdk-openjdk java-openjfx python \
                 jad maven \
 		intellij-idea-community-edition
