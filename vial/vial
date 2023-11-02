@@ -1,0 +1,2 @@
+#!/bin/bash
+docker-on-x run -it --rm --name vial -v /dev:/dev -v /media/:/media --privileged vial
