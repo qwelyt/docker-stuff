@@ -16,7 +16,7 @@ RUN pacman -Syyu --noconfirm \
 		noto-fonts noto-fonts-extra noto-fonts-emoji ttf-droid ttf-dejavu ttf-liberation \
 		libxrender freetype2 libxft libxtst mesa glu \
 		jre-openjdk jdk-openjdk go rustup python \
-        	jad maven python-pip pyenv texlive \
+        	jad maven python-pip pyenv texlive texlive-langeuropean texlive-langenglish \
         	code
 
 
@@ -35,10 +35,10 @@ RUN chmod +x start.sh
 USER developer
 RUN rustup toolchain install stable && rustup default stable
 
-RUN eval "$(pyenv ini -)"
-RUN pyenv install 3.10.11 && pyenv global 3.10.11
-RUN pyenv exec pip install git+https://github.com/gumyr/build123d
-RUN pyenv exec pip install --pre "cadquery>=2.2"
+#RUN eval "$(pyenv ini -)"
+#RUN pyenv install 3.10.11 && pyenv global 3.10.11
+#RUN pyenv exec pip install git+https://github.com/gumyr/build123d
+#RUN pyenv exec pip install --pre "cadquery>=2.2"
 #ENTRYPOINT ["/usr/bin/zsh"]
 #CMD ["QT_X11_NO_MITSHM=1 /usr/sbin/code","--verbose"]
 #ENTRYPOINT ["QT_X11_NO_MITSHM=1 /usr/sbin/code"]

@@ -2,7 +2,7 @@
 docker-on-x run --rm \
     -it \
     --name vscode \
-    -v $HOME/code:/home/developer/code \
+    -v $HOME/:/home/developer/ \
     -v $HOME/.m2:/home/developer/.m2 \
     -v $HOME/vscode/:/home/developer/.cache \
     -v $HOME/vscode/config/:/home/developer/.config \
