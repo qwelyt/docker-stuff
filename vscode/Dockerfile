@@ -15,7 +15,7 @@ RUN pacman -Syyu --noconfirm \
 		sudo openssh zsh grml-zsh-config vim docker git \
 		noto-fonts noto-fonts-extra noto-fonts-emoji ttf-droid ttf-dejavu ttf-liberation \
 		libxrender freetype2 libxft libxtst mesa glu \
-		jre-openjdk jdk-openjdk go rustup python \
+		jdk-openjdk go rustup python \
         	jad maven python-pip pyenv texlive texlive-langeuropean texlive-langenglish \
         	code
 
