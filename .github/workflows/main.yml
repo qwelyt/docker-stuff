@@ -12,6 +12,7 @@ on:
           - CQ-Editor
           - CQ-Editor-jerns-fork
           - CadAssistant
+          - ChiTuBox
           - Chromium
           - DBeaver
           - Discord
@@ -24,6 +25,7 @@ on:
           - Java-Mission-Control
           - KiCAD
           - LibreOffice
+          - Lychee-slicer
           - MS-Teams
           - OpenSCAD
           - Slack
@@ -67,6 +69,15 @@ jobs:
       repo: qwelyt/apps
       tag: cad-assistant
       context: cad-assistant/
+    secrets: inherit
+
+  ChiTuBox:
+    if: ${{ github.event.inputs.app == 'ChiTuBox' }}
+    uses: ./.github/workflows/build-and-publish.yml
+    with:
+      repo: qwelyt/apps
+      tag: chitubox
+      context: chitubox/
     secrets: inherit
 
   Chromium:
@@ -175,6 +186,15 @@ jobs:
       repo: qwelyt/apps
       tag: libreoffice
       context: libreoffice
+    secrets: inherit
+
+  Lychee-slicer:
+    if: ${{ github.event.inputs.app == 'Lychee-slicer' }}
+    uses: ./.github/workflows/build-and-publish.yml
+    with:
+      repo: qwelyt/apps
+      tag: lycheeslicer
+      context: lychee-slicer/
     secrets: inherit
 
   MS-Teams:
