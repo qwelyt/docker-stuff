@@ -1,0 +1,18 @@
+#!/bin/bash
+NAME=${@// /_}
+NAME=${NAME////_}
+#	--user=$UID:1000 \
+docker-on-x run --rm \
+    -it \
+    --name chitubox-$NAME \
+    -e TZ=Europe/Stockholm \
+    -e GDK_SCALE \
+    -e GDK_DPI_SCALE \
+    -v /etc/localtime:/etc/localtime:ro \
+    -v "$PWD":/files/ \
+    --device /dev/snd \
+    --device /dev/dri \
+    --device /dev/bus/usb \
+    --group-add audio \
+    --group-add video \
+    qwelyt/apps:chitubox "$@"
