@@ -9,7 +9,7 @@ RUN pacman -S --noconfirm \
         wget \
 	    ttf-dejavu ttf-droid \
 	    libxrender freetype2 libxft libxtst glu \
-	    icoutils xdg-user-dirs
+	    icoutils xdg-user-dirs qt5-base
 
 RUN useradd --no-create-home --shell=/bin/bash $BUILD
 RUN usermod -L $BUILD
@@ -35,4 +35,5 @@ RUN rm -rf /tmp/*
 
 WORKDIR /files/
 
-ENTRYPOINT [ "bash" ]
+#ENTRYPOINT [ "bash" ]
+ENTRYPOINT [ "chitubox-free" ]
