@@ -18,7 +18,7 @@ RUN pacman -Syyu --noconfirm \
 		libxrender freetype2 libxft libxtst \
                 avrdude arduino-avr-core avr-gcc avr-libc \
 		rustup arm-none-eabi-gdb qemu-base qemu-system-avr qemu-system-arm openocd \
-		jre-openjdk jdk-openjdk python \
+		jdk-openjdk python \
                 jad maven \
 		intellij-idea-community-edition
 
