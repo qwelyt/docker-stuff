@@ -16,7 +16,7 @@ RUN pacman -Syyu --noconfirm \
 		noto-fonts noto-fonts-extra noto-fonts-emoji ttf-droid ttf-dejavu ttf-liberation \
 		libxrender freetype2 libxft libxtst mesa glu \
 		jdk-openjdk go rustup python \
-        	jad maven python-pip pyenv texlive texlive-langeuropean texlive-langenglish \
+        	jad maven python-pip pyenv texlive texlive-langeuropean texlive-langenglish zola \
         	code
 
 

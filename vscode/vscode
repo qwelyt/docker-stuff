@@ -10,5 +10,6 @@ docker-on-x run --rm \
     -v /dev/shm:/dev/shm \
     --device /dev/dri \
     --security-opt seccomp=/etc/docker/seccomp/default2.json \
+    --memory 4g \
     qwelyt/apps:VSCode "$@"
 #    --user "$(id -u):$(id -g)" \
