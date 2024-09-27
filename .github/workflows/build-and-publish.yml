@@ -27,7 +27,7 @@ jobs:
           with:
             username: ${{ secrets.DOCKER_HUB_USERNAME }}
             password: ${{ secrets.DOCKER_HUB_TOKEN }}
-        - uses: docker/build-push-action@v3
+        - uses: docker/build-push-action@v6
           with:
             context: ${{ inputs.context }}
             push: true
