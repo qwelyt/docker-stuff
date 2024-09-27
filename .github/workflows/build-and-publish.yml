@@ -22,8 +22,8 @@ jobs:
       name: Build and publish ${{ inputs.tag }}
       runs-on: ubuntu-latest
       steps:
-        - uses: actions/checkout@v3
-        - uses: docker/login-action@v2
+        - uses: actions/checkout@v4
+        - uses: docker/login-action@v3
           with:
             username: ${{ secrets.DOCKER_HUB_USERNAME }}
             password: ${{ secrets.DOCKER_HUB_TOKEN }}
