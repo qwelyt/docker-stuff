@@ -1,14 +1,12 @@
 #!/bin/bash
-
-	#--device /dev/video0 \
 USER_ID=$(id -u)
 docker-on-x run --rm \
 	-it \
 	--name firefox \
 	-e TZ=Europe/Stockholm \
+	-v "${HOME}/Documents:/home/developer/Documents" \
 	-v "${HOME}/Downloads:/home/developer/Downloads" \
 	-v "${HOME}/Pictures:/home/developer/Pictures" \
-	-v "${HOME}/Torrents:/home/developer/Torrents" \
 	-v "${HOME}/.firefox/mozilla:/home/developer/.mozilla" \
 	-v "${HOME}/.firefox/cache:/home/developer/.cache" \
 	-v /dev/shm:/dev/shm \
@@ -17,6 +15,10 @@ docker-on-x run --rm \
 	--device /dev/snd \
 	--device /dev/dri \
 	--device /dev/bus/usb \
+	--device /dev/video0 \
+	--device /dev/video1 \
 	--group-add audio \
 	--group-add video \
-    firefox $@
+	--net host \
+	--memory 6g \
+    qwelyt/apps:firefox $@
