@@ -1,0 +1,64 @@
+#! /bin/sh
+#  ~/bin/docker-on-x -- create or run Docker images on X
+#  Copyright © 2016, 2019  Olaf Meeuwissen <paddy-hack@member.fsf.org>
+#
+#  SPDX-License-Identifier: GPL-3.0-or-later
+
+#  Inspired by and based on information published at
+#  https://paddy-hack.gitlab.io/posts/running-dockerized-gui-applications/
+#
+# Retrieved from: https://gitlab.com/dotter/docker/blob/master/bin/docker-on-x  
+
+usage () {
+    cat <<EOF
+'`basename $0`' create or run Docker images on X
+
+Usage: $0 {run|create} [OPTIONS] IMAGE [COMMAND] [ARG...]
+       $0 help|--help|-h
+
+A simple wrapper around 'docker' that creates a wildcard copy of your
+Xauthority file, where necessary, and injects command-line options so
+that you can run or create Docker images on X.
+
+The following wrapper specific options are supported:
+
+  -h, --help          display this help and exit
+
+BUG: Assumes MIT-MAGIC-COOKIE-1 X authority files.
+EOF
+    exit $1
+}
+
+docker_on_x () {
+
+    DOCKER_XAUTH=$DOCKER_CONF/Xauthority
+
+    test -d $DOCKER_CONF || mkdir -p $DOCKER_CONF
+
+    if ! test -e $DOCKER_XAUTH || test $XAUTHORITY -nt $DOCKER_XAUTH
+    then
+        cp --preserve=all $XAUTHORITY $DOCKER_XAUTH
+        echo "ffff 0000  $(xauth nlist $DISPLAY | cut -d\  -f4-)" \
+            | xauth -f $DOCKER_XAUTH nmerge -
+    fi
+
+    exec \
+        docker $CMD \
+        --volume $X11_SOCKET:$X11_SOCKET \
+        --volume $DOCKER_XAUTH:$DOCKER_XAUTH \
+        --env XAUTHORITY=$DOCKER_XAUTH \
+        --env DISPLAY=$DISPLAY \
+        "$@"
+}
+
+#  Defaults if not already set
+
+: ${XAUTHORITY:=$HOME/.Xauthority}
+: ${X11_SOCKET:=/tmp/.X11-unix}
+: ${DOCKER_CONF:=$HOME/.docker}
+
+case "$1" in
+    run|create)         CMD=$1; shift; docker_on_x "$@";;
+    help|--help|-h)     usage;;
+    *)                  usage 1;;
+esac

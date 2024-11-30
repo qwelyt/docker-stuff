@@ -10,6 +10,9 @@ I use `docker-on-x` to run GUI stuff. It's a simpel script that helps with runni
 The actual script can be found over at https://gitlab.com/dotter/docker/blob/master/bin/docker-on-x  
 `wget https://gitlab.com/dotter/docker/raw/master/bin/docker-on-x`
 
+### Now included here
+Since GitLab has closed the repo for viewing by non-gitlab users, and paddy-hack no longer hosts the linked blog post, I have decided to include the script in this repository now. Enjoy.
+
 ## Get them from dockerhub
 If you don't want to build the image yourself you can get them over at https://hub.docker.com/r/qwelyt/apps/tags  
 I have setup github actions to build them for me and publish them over at dockerhub.  
