@@ -28,6 +28,7 @@ on:
           - Lychee-slicer
           - MS-Teams
           - OpenSCAD
+          - RustRover
           - Slack
           - VSCode
           - VisualVM
@@ -213,6 +214,15 @@ jobs:
       repo: qwelyt/apps
       tag: openscad
       context: OpenSCAD/
+    secrets: inherit
+
+  RustRover:
+    if: ${{ github.event.inputs.app == 'RustRover' }}
+    uses: ./.github/workflows/build-and-publish.yml
+    with:
+      repo: qwelyt/apps
+      tag: rustrover
+      context: rustrover/
     secrets: inherit
 
   Slack:

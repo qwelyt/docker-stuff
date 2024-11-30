@@ -1,0 +1,14 @@
+#!/bin/bash
+docker-on-x run --rm \
+    -it \
+    --name rustrover \
+    -v $HOME/intellijSettings/local:/home/developer/.local/share/JetBrains \
+    -v $HOME/intellijSettings/config:/home/developer/.config/JetBrains \
+    -v $HOME/intellijSettings/cache:/home/developer/.cache/JetBrains \
+    -v $HOME/intellijSettings/java:/home/developer/.java \
+    -v $HOME/code:/home/developer/IdeaProjects \
+    -v $HOME/.m2:/home/developer/.m2 \
+    -v $HOME/.cargo:/home/developer/.cargo \
+    -v $HOME/.rustup:/home/developer/.rustup \
+    -v /dev:/dev \
+    qwelyt/apps:rustrover
