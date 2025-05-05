@@ -11,7 +11,7 @@ RUN pacman -S --noconfirm \
 	    libxrender freetype2 libxft libxtst glu \
 	    icoutils xdg-user-dirs qt5-base
 
-RUN useradd --no-create-home --shell=/bin/bash $BUILD
+RUN useradd --shell=/bin/bash $BUILD
 RUN usermod -L $BUILD
 RUN echo "$BUILD ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 RUN echo "root ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
@@ -27,6 +27,7 @@ RUN mkdir /tmp/aur \
 
 USER root
 RUN userdel -r $BUILD
+RUN rm -rf /home/$BUILD
 RUN sed -i "/${BUILD} ALL=(ALL) NOPASSWD: ALL/d" /etc/sudoers
 
 RUN pacman -Scc --noconfirm
