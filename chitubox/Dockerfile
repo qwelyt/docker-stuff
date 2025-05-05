@@ -23,7 +23,6 @@ RUN mkdir /tmp/aur \
 	&& curl -X GET https://aur.archlinux.org/cgit/aur.git/snapshot/chitubox-free-bin.tar.gz  --output chitubox-free-bin.tar.gz \
 	&& tar xzf chitubox-free-bin.tar.gz \
 	&& cd chitubox-free-bin \
-	&& curl -L -X GET 'https://sac.chitubox.com/software/download.do?softwareId=17839&softwareVersionId=v1.9.5&fileName=CHITUBOX_V1.9.5.tar.gz' --output CHITUBOX_V1.9.5.tar.gz \
 	&& makepkg -sic --noconfirm
 
 USER root
