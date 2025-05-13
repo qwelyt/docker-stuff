@@ -26,6 +26,8 @@ RUN useradd -m -G wheel -s /bin/zsh $USERNAME \
 
 RUN mv /usr/share/icons/Adwaita/cursors /usr/share/icons/Adwaita/_cursors
 
+RUN dbus-uuidgen --ensure=/etc/machine-id
+
 # To be able to connect to hosts pulseaudio server and get sound
 COPY pulse-client.conf /etc/pulse/client.conf 
 
